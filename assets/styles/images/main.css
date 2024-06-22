@@ -1,1 +1,222 @@
-/*# sourceMappingURL=main.css.map */
+body {
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
+.navbar ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+}
+.navbar ul li {
+  display: inline;
+}
+.navbar ul li a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.main-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.main-content .text-section {
+  max-width: 50%;
+}
+.main-content .text-section .metadata {
+  display: flex;
+  gap: 10px;
+  color: #aaa;
+}
+.main-content .text-section h1 {
+  font-size: 48px;
+  font-weight: 800;
+  margin: 0;
+}
+.main-content .text-section p {
+  margin: 20px 0;
+  color: #555;
+}
+.main-content .text-section .watch-btn {
+  padding: 10px 20px;
+  background-color: #ffdd57;
+  color: #000;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 5px;
+}
+.main-content .image-section {
+  max-width: 40%;
+}
+.main-content .image-section img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.popular-movies .section-title h2 {
+  font-size: 32px;
+  font-weight: 800;
+}
+.popular-movies .section-title p {
+  color: #555;
+}
+.popular-movies .cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.popular-movies .cards-container .card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-width: 300px;
+}
+.popular-movies .cards-container .card img {
+  width: 100%;
+  height: 200px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.popular-movies .cards-container .card .card-content {
+  padding: 20px;
+}
+.popular-movies .cards-container .card .card-content h3 {
+  margin: 0 0 10px 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+.popular-movies .cards-container .card .card-content p {
+  margin: 0;
+  color: #777;
+}
+
+.popular-categories .categories {
+  display: flex;
+  gap: 20px;
+}
+.popular-categories .categories .category-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.popular-categories .categories .category-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.popular-categories .categories .category-card .category-text {
+  margin-top: 10px;
+  font-weight: 600;
+}
+.popular-categories .info-section {
+  text-align: center;
+  margin-top: 40px;
+}
+.popular-categories .info-section h2 {
+  font-size: 32px;
+  font-weight: 800;
+}
+.popular-categories .info-section p {
+  color: #555;
+}
+.popular-categories .info-section .view-all-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #ffdd57;
+  color: #000;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 5px;
+}
+
+.footer {
+  background-color: #333;
+  color: #fff;
+  padding: 40px 0;
+}
+.footer .footer-container {
+  display: flex;
+  justify-content: space-between;
+}
+.footer .footer-container .footer-column h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.footer .footer-container .footer-column ul {
+  list-style-type: none;
+  padding: 0;
+}
+.footer .footer-container .footer-column ul li {
+  margin-bottom: 10px;
+}
+.footer .footer-container .footer-column ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 300;
+}
+.footer .footer-container .footer-column ul li a:hover {
+  text-decoration: underline;
+}
+.footer .footer-logo {
+  text-align: center;
+  margin-top: 20px;
+}
+.footer .footer-logo img {
+  max-width: 200px;
+}
+.footer .footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+}
+.footer .footer-bottom a {
+  color: #ffdd57;
+  text-decoration: none;
+}
+.footer .footer-bottom a:hover {
+  text-decoration: underline;
+}
+.footer .footer-social {
+  text-align: center;
+  margin-top: 20px;
+}
+.footer .footer-social a {
+  margin: 0 10px;
+  display: inline-block;
+  color: #fff;
+}
+.footer .footer-social a svg {
+  width: 24px;
+  height: 24px;
+}/*# sourceMappingURL=main.css.map */
