@@ -40,6 +40,60 @@ body {
     font-weight: 800;
 }
 
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+#searchInput {
+    display: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 200px;
+    width: 0;
+    transition: width 0.3s ease, display 0.3s ease;
+}
+
+#searchButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+#searchButton svg {
+    fill: #000;
+    width: 18px; 
+    height: 18px;
+}
+
+#closeButton {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 18px;
+    color: #FFD700; 
+}
+
+.search-container.active #searchInput {
+    display: block;
+    width: 200px;
+}
+
+.search-container.active #closeButton {
+    display: block;
+}
+
+.search-container.active #searchButton {
+    display: none;
+}
+
 .main-content {
     display: flex;
     align-items: center;
@@ -90,102 +144,124 @@ body {
 }
 
 .popular-movies {
-    .section-title {
-        h2 {
-            font-size: 32px;
-            font-weight: 800;
-        }
+    padding: 20px;
+}
 
-        p {
-            color: #555;
-        }
-    }
+.popular-movies h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
 
-    .cards-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
+.movie-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
 
-        .card {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            max-width: 300px;
+.movie-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-            img {
-                width: 100%;
-                height: 200px;
-                object-fit: cover;
-            }
+.movie-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
 
-            .card-content {
-                padding: 20px;
+.movie-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
 
-                h3 {
-                    margin: 0 0 10px 0;
-                    font-size: 24px;
-                    font-weight: 600;
-                }
-
-                p {
-                    margin: 0;
-                    color: #777;
-                }
-            }
-        }
-    }
+.movie-card .movie-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.1em;
 }
 
 .popular-categories {
-    .categories {
-        display: flex;
-        gap: 20px;
-
-        .category-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            img {
-                width: 100px;
-                height: 100px;
-                border-radius: 50%;
-                object-fit: cover;
-            }
-
-            .category-text {
-                margin-top: 10px;
-                font-weight: 600;
-            }
-        }
-    }
-
-    .info-section {
-        text-align: center;
-        margin-top: 40px;
-
-        h2 {
-            font-size: 32px;
-            font-weight: 800;
-        }
-
-        p {
-            color: #555;
-        }
-
-        .view-all-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #ffdd57;
-            color: #000;
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 5px;
-        }
-    }
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
 }
+
+.categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
+    flex: 2;
+}
+
+.category-card {
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    height: 200px;
+    position: relative;
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.category-card:hover {
+    transform: scale(1.05);
+}
+
+.category-card::after {
+    content: attr(data-title);
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 1.2em;
+    color: white;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.info-section {
+    flex: 1;
+    padding-left: 30px;
+}
+
+.info-section h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.info-section p {
+    margin-bottom: 20px;
+    color: #666;
+    font-size: 1em;
+}
+
+.view-all-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #FFD700;
+    color: #000;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.view-all-btn:hover {
+    background-color: #FFC107; 
+}
+
 
 .footer {
     background-color: #333;
@@ -194,7 +270,7 @@ body {
 
     .footer-container {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
 
         .footer-column {
             h3 {
@@ -236,6 +312,10 @@ body {
     .footer-bottom {
         text-align: center;
         margin-top: 20px;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: baseline;
+    }
 
         a {
             color: #ffdd57;
@@ -247,19 +327,21 @@ body {
         }
     }
 
-    .footer-social {
-        text-align: center;
-        margin-top: 20px;
-
-        a {
-            margin: 0 10px;
-            display: inline-block;
-            color: #fff;
-
-            svg {
-                width: 24px;
-                height: 24px;
-            }
-        }
+    .social-icons {
+        display: flex;
+        gap: 8px;
     }
-}
+    
+    .social-icon {
+        display: inline-block;
+        width: 24px;
+        height: 24px; 
+    }
+    
+    .social-icon svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+    
+
