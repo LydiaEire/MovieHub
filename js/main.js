@@ -5,25 +5,25 @@ document.addEventListener('DOMContentLoaded', () => {
     loadTrendingShows();
     loadPopularCartoons();
 
-    const searchButton = document.getElementById('searchButton');
-    const closeButton = document.getElementById('closeButton');
-    const searchContainer = document.querySelector('.search-container');
-    const searchInput = document.getElementById('searchInput');
-
-    if (searchButton && closeButton && searchContainer && searchInput) {
-        searchButton.addEventListener('click', () => {
-            searchContainer.classList.add('active');
-            searchInput.focus();
-        });
-
-        closeButton.addEventListener('click', () => {
-            searchContainer.classList.remove('active');
-            searchInput.value = '';
-        });
-    }
+    setTimeout(() => {
+        const searchButton = document.getElementById('searchButton');
+        const closeButton = document.getElementById('closeButton');
+        const searchContainer = document.querySelector('.search-container');
+        const searchInput = document.getElementById('searchInput');
+        if (searchButton && closeButton && searchContainer && searchInput) {
+            searchButton.addEventListener('click', () => {
+                searchContainer.classList.add('active');
+                searchInput.focus();
+            });
+    
+            closeButton.addEventListener('click', () => {
+                searchContainer.classList.remove('active');
+                searchInput.value = '';
+            });
+        }
+    }, 500)
 
     const galleries = document.querySelectorAll('#movieGallery, #cartoonGallery, #tvShowGallery');
-    
     galleries.forEach(gallery => {
         let scrollAmount = 0;
 
