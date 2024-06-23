@@ -150,42 +150,61 @@ body {
   padding: 20px;
 }
 
-.popular-movies h2 {
+.popular-movies h2,
+.trending-shows h2,
+.popular-cartoons h2 {
   font-size: 2em;
   margin-bottom: 20px;
 }
 
-.movie-gallery {
+.movie-gallery,
+.tvshow-gallery,
+.cartoon-gallery {
   display: flex;
   gap: 15px;
   overflow-x: scroll;
   scrollbar-width: none;
 }
 
-.movie-gallery::-webkit-scrollbar {
+.movie-gallery::-webkit-scrollbar,
+.tvshow-gallery::-webkit-scrollbar,
+.cartoon-gallery::-webkit-scrollbar {
   display: none; /* Для Chrome, Safari и Opera */
 }
 
-.movie-card {
+.movie-card,
+.tvshow-card,
+.cartoon-card,
+.gallery-item {
   min-width: 200px;
   position: relative;
   overflow: hidden;
   border-radius: 10px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #f0f0f0;
 }
 
-.movie-card:hover {
+.movie-card:hover,
+.tvshow-card:hover,
+.cartoon-card:hover,
+.gallery-item:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-.movie-card img {
+.movie-card img,
+.tvshow-card img,
+.cartoon-card img,
+.gallery-item img {
   width: 100%;
   height: auto;
   display: block;
 }
 
-.movie-card .movie-info {
+.movie-card .movie-info,
+.tvshow-card .tvshow-info,
+.cartoon-card .cartoon-info,
+.gallery-item h3 {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -197,11 +216,57 @@ body {
   font-size: 1.1em;
 }
 
+.gallery-item {
+  width: calc(25% - 15px);
+}
+
+/* Popular Categories style */
 .popular-categories {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 20px;
+  padding: 100px 20px;
+  gap: 20px;
+  /* Мобильные устройства (до 400px) */
+  /* Мобильные устройства (до 600px) */
+  /* Планшеты (до 768px) */
+  /* Малые десктопы (до 992px) */
+}
+@media (max-width: 400px) {
+  .popular-categories {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 10px;
+    gap: 10px;
+  }
+}
+@media (max-width: 600px) {
+  .popular-categories {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 10px;
+    gap: 10px;
+  }
+}
+@media (max-width: 768px) {
+  .popular-categories {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 75px 15px;
+    gap: 15px;
+  }
+}
+@media (max-width: 992px) {
+  .popular-categories {
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 80px 20px;
+    gap: 20px;
+  }
 }
 
 .categories {
@@ -243,17 +308,30 @@ body {
 .info-section {
   flex: 1;
   padding-left: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Медиазапросы для заголовка и кнопки */
+}
+@media (max-width: 768px) {
+  .info-section {
+    order: 1;
+    padding-left: 0;
+    margin-top: 20px;
+  }
 }
 
 .info-section h2 {
   font-size: 2em;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .info-section p {
   margin-bottom: 20px;
   color: #666;
   font-size: 1em;
+  text-align: center;
 }
 
 .view-all-btn {
@@ -265,12 +343,15 @@ body {
   text-decoration: none;
   font-weight: bold;
   transition: background-color 0.3s ease;
+  text-align: center;
+  margin-top: auto;
 }
 
 .view-all-btn:hover {
   background-color: #FFC107;
 }
 
+/* Footer style */
 .footer {
   background-color: #333;
   color: white;
@@ -344,7 +425,6 @@ body {
 }
 
 /* Медиазапросы */
-/* Мобильные устройства (до 600px) */
 @media (max-width: 600px) {
   .footer-container {
     flex-direction: column;
@@ -368,7 +448,6 @@ body {
     font-size: 1.2em;
   }
 }
-/* Планшеты (до 768px) */
 @media (max-width: 768px) {
   .footer-container {
     flex-direction: column;
@@ -392,13 +471,11 @@ body {
     font-size: 1.3em;
   }
 }
-/* Десктопы (до 992px) */
 @media (max-width: 992px) {
   .footer-rights {
     margin-left: 0;
   }
 }
-/* Большие десктопы (от 1200px) */
 @media (min-width: 1200px) {
   .footer-logo {
     width: 60px;
