@@ -16,6 +16,19 @@ document.addEventListener('DOMContentLoaded', () => {
         searchContainer.classList.remove('active');
         searchInput.value = '';
     });
+
+    const gallery = document.getElementById('movieGallery');
+    let scrollAmount = 0;
+
+    function autoScroll() {
+        gallery.scrollBy(1, 0);
+        scrollAmount += 1;
+        if (scrollAmount >= gallery.scrollWidth) {
+            gallery.scrollTo(0, 0);
+            scrollAmount = 0;
+        }
+    }
+    setInterval(autoScroll, 20); 
 });
 
 function loadPopularMovies() {
@@ -25,8 +38,10 @@ function loadPopularMovies() {
         { title: "Joker", img: "https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg" },
         { title: "Frozen II", img: "https://m.media-amazon.com/images/I/81gZRcu9l5L._AC_UF1000,1000_QL80_.jpg" },
         { title: "Toy Story 4", img: "https://m.media-amazon.com/images/M/MV5BMTYzMDM4NzkxOV5BMl5BanBnXkFtZTgwNzM1Mzg2NzM@._V1_.jpg" },
+        { title: "House of Dragon", img: "https://m.media-amazon.com/images/M/MV5BM2QzMGVkNjUtN2Y4Yi00ODMwLTg3YzktYzUxYjJlNjFjNDY1XkEyXkFqcGc@._V1_.jpg"},
+        {title: "Earth", img:"https://m.media-amazon.com/images/M/MV5BMTU0N2Y5OWUtMjk5Zi00ZTkyLWEwZWItNTk2ZDlhN2E0MjQyXkEyXkFqcGdeQXVyMTY4NDIxODQ0._V1_.jpg"},
+        
     ];
-
     const galleryContainer = document.getElementById('movieGallery');
     galleryContainer.innerHTML = movies.map(movie => `
         <div class="movie-card">
