@@ -35,9 +35,21 @@ body {
     }
 }
 
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo {
+    width: 40px; 
+    height: auto;
+    margin-right: 10px;
+}
+
 .logo {
-    font-size: 24px;
-    font-weight: 800;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: black;
 }
 
 .search-container {
@@ -319,7 +331,7 @@ body {
 }
 
 .footer-logo {
-    width: 50px;
+    width: 50px; 
     height: auto;
     margin-right: 10px;
 }
@@ -363,7 +375,7 @@ body {
     }
 
     .footer-logo {
-        width: 40px; 
+        width: 40px;
     }
 
     .footer-company-name {
