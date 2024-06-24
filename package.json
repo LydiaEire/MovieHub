@@ -18,3 +18,24 @@
     "sass": "^1.77.6"
   }
 }
+
+{
+  "name": "moviehub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "vite.config.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vite": "^5.3.1"
+  },
+  "devDependencies": {
+    "sass": "^1.77.6"
+  }
+}

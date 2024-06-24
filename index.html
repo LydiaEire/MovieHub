@@ -5,33 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MovieHub</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets\main.css">
+    <link rel="stylesheet" href="assets/main.css">
 </head>
 <body>
     <div class="container">
-        <nav class="navbar">
-            <div class="logo-container">
-                <img src="assets/styles/images/movie_11327060.png" alt="MovieHub Logo" class="header-logo">
-                <div class="logo">MOVIEHUB</div>
-            </div>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Categories</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Sign in</a></li>
-            </ul>
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Search">
-                <button id="searchButton">
-                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 50 50"
-                    style="fill:#FAB005;">
-                    <path d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z"></path>
-                    </svg>
-                </button>
-                <button id="closeButton">X</button>
-            </div>
-        </nav>
-        
+        <div id="header" class="header"></div>
+
         <div class="main-content">
             <div class="text-section">
                 <div class="metadata">
@@ -49,12 +28,24 @@
                 <img src="https://m.media-amazon.com/images/M/MV5BMTQzYWYwYjctY2JhZS00NTYzLTllM2UtZWY5ZTk0NmYwYzIyXkEyXkFqcGdeQXVyMzgxODM4NjM@._V1_.jpg" alt="Alita: Battle Angel">
             </div>
         </div>
+        
         <!-- Popular Movies Section -->
         <section class="popular-movies">
             <h2>Popular Movies</h2>
             <div class="movie-gallery" id="movieGallery"></div>
         </section>
         
+        <!-- Trending TV shows Section -->
+        <section class="trending-shows">
+            <h2>Trending TV Shows</h2>
+            <div class="tvshow-gallery" id="tvShowGallery"></div>
+        </section>
+
+        <!-- Popular Cartoons Section -->
+        <section class="popular-cartoons">
+            <h2>Popular Cartoons</h2>
+            <div class="cartoon-gallery" id="cartoonGallery"></div>
+        </section>
 
         <!-- Popular Categories Section -->
         <div class="popular-categories">
@@ -66,67 +57,25 @@
             </div>
             <div class="info-section">
                 <h2>Popular Categories</h2>
-                <p>All content at EMovies is divided into several categories that helps you to easily navigate between them and find what you like.</p>
+                <p>All content at MovieHub is divided into several categories that helps you to easily navigate between them and find what you like.</p>
                 <a href="#" class="view-all-btn">VIEW ALL</a>
             </div>
         </div>
 
-        <!-- Footer Section -->
-        <div class="footer">
-            <div class="footer-container">
-                <div class="footer-column">
-                    <h3>Useful Links</h3>
-                    <ul>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">News</a></li>
-                        <li><a href="#">Team</a></li>
-                        <li><a href="#">EMovies App</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Categories</h3>
-                    <ul>
-                        <li><a href="#">Movies</a></li>
-                        <li><a href="#">TV Shows</a></li>
-                        <li><a href="#">Marvel</a></li>
-                        <li><a href="#">Cartoons</a></li>
-                        <li><a href="#">Other</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Get in Touch</h3>
-                    <ul>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Customer Support</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div class="footer-logo-text">
-                    <img src="assets/styles/images/movie_11327060.png" alt="MovieHub Logo" class="footer-logo">
-                    <span class="footer-company-name">MOVIEHUB</span>
-                </div>
-                <div class="footer-rights">
-                    &copy; 2024. All rights reserved. <a href="#">Privacy Policy</a>
-                </div>
-                <div class="social-icons">
-                    <a href="#" class="social-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0,0,300,150"
-                        style="fill:#FAB005;">
-                        <g fill="#fab005" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.12,5.12)"><path d="M25,2c12.703,0 23,10.297 23,23c0,12.703 -10.297,23 -23,23c-12.703,0 -23,-10.297 -23,-23c0,-12.703 10.297,-23 23,-23zM32.934,34.375c0.423,-1.298 2.405,-14.234 2.65,-16.783c0.074,-0.772 -0.17,-1.285 -0.648,-1.514c-0.578,-0.278 -1.434,-0.139 -2.427,0.219c-1.362,0.491 -18.774,7.884 -19.78,8.312c-0.954,0.405 -1.856,0.847 -1.856,1.487c0,0.45 0.267,0.703 1.003,0.966c0.766,0.273 2.695,0.858 3.834,1.172c1.097,0.303 2.346,0.04 3.046,-0.395c0.742,-0.461 9.305,-6.191 9.92,-6.693c0.614,-0.502 1.104,0.141 0.602,0.644c-0.502,0.502 -6.38,6.207 -7.155,6.997c-0.941,0.959 -0.273,1.953 0.358,2.351c0.721,0.454 5.906,3.932 6.687,4.49c0.781,0.558 1.573,0.811 2.298,0.811c0.725,0 1.107,-0.955 1.468,-2.064z"></path></g></g>
-                        </svg>
-                    </a>
-                    <a href="#" class="social-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0,0,300,150"
-                        style="fill:#FAB005;">
-                        <g fill="#fab005" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.12,5.12)"><path d="M44.89844,14.5c-0.39844,-2.19922 -2.29687,-3.80078 -4.5,-4.30078c-3.29687,-0.69922 -9.39844,-1.19922 -16,-1.19922c-6.59766,0 -12.79687,0.5 -16.09766,1.19922c-2.19922,0.5 -4.10156,2 -4.5,4.30078c-0.40234,2.5 -0.80078,6 -0.80078,10.5c0,4.5 0.39844,8 0.89844,10.5c0.40234,2.19922 2.30078,3.80078 4.5,4.30078c3.5,0.69922 9.5,1.19922 16.10156,1.19922c6.60156,0 12.60156,-0.5 16.10156,-1.19922c2.19922,-0.5 4.09766,-2 4.5,-4.30078c0.39844,-2.5 0.89844,-6.10156 1,-10.5c-0.20312,-4.5 -0.70312,-8 -1.20312,-10.5zM19,32v-14l12.19922,7z"></path></g></g>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>    
+        <div id="footer" class="footer"></div>
     </div>
-    <script type="module" src="js\main.js"></script>
+    <script>
+        // Загрузка хедера
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('header').innerHTML = data);
+
+        // Загрузка футера
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('footer').innerHTML = data);
+    </script>
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
+

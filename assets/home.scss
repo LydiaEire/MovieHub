@@ -1,0 +1,262 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.main-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+    .text-section {
+        max-width: 50%;
+
+        .metadata {
+            display: flex;
+            gap: 10px;
+            color: #aaa;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin: 0;
+        }
+
+        p {
+            margin: 20px 0;
+            color: #555;
+        }
+
+        .watch-btn {
+            padding: 10px 20px;
+            background-color: #ffdd57;
+            color: #000;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 5px;
+        }
+    }
+
+    .image-section {
+        max-width: 40%;
+
+        img {
+            width: 100%;
+            border-radius: 10px;
+        }
+    }
+}
+
+.popular-movies {
+    padding: 20px;
+}
+
+.popular-movies h2,
+.trending-shows h2,
+.popular-cartoons h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.movie-gallery,
+.tvshow-gallery,
+.cartoon-gallery {
+    display: flex;
+    gap: 15px;
+    overflow-x: scroll; 
+    scrollbar-width: none;
+}
+
+.movie-gallery::-webkit-scrollbar,
+.tvshow-gallery::-webkit-scrollbar,
+.cartoon-gallery::-webkit-scrollbar {
+    display: none; /* Для Chrome, Safari и Opera */
+}
+
+.movie-card,
+.tvshow-card,
+.cartoon-card,
+.gallery-item {
+    min-width: 200px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #f0f0f0;
+}
+
+.movie-card:hover,
+.tvshow-card:hover,
+.cartoon-card:hover,
+.gallery-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.movie-card img,
+.tvshow-card img,
+.cartoon-card img,
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.movie-card .movie-info,
+.tvshow-card .tvshow-info,
+.cartoon-card .cartoon-info,
+.gallery-item h3 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+.gallery-item {
+    width: calc(25% - 15px);
+}
+
+/* Popular Categories style */
+
+.popular-categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 100px 20px;
+    gap: 20px;
+
+    /* Мобильные устройства (до 400px) */
+    @media (max-width: 400px) {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 50px 10px;
+        gap: 10px;
+    }
+
+    /* Мобильные устройства (до 600px) */
+    @media (max-width: 600px) {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 60px 10px;
+        gap: 10px;
+    }
+
+    /* Планшеты (до 768px) */
+    @media (max-width: 768px) {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 75px 15px;
+        gap: 15px;
+    }
+
+    /* Малые десктопы (до 992px) */
+    @media (max-width: 992px) {
+        flex-direction: row;
+        justify-content: space-evenly;
+        padding: 80px 20px;
+        gap: 20px;
+    }
+}
+
+.categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
+    flex: 2;
+}
+
+.category-card {
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    height: 200px;
+    position: relative;
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.category-card:hover {
+    transform: scale(1.05);
+}
+
+.category-card::after {
+    content: attr(data-title);
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 1.2em;
+    color: white;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.info-section {
+    flex: 1;
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+/* Медиазапросы для заголовка и кнопки */
+    @media (max-width: 768px) {
+        order: 1; 
+        padding-left: 0;
+        margin-top: 20px;
+    }
+}
+
+.info-section h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.info-section p {
+    margin-bottom: 20px;
+    color: #666;
+    font-size: 1em;
+    text-align: center;
+}
+
+.view-all-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #FFD700;
+    color: #000;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    margin-top: auto; 
+}
+
+.view-all-btn:hover {
+    background-color: #FFC107; 
+}
