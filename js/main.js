@@ -1,28 +1,42 @@
 // Home Page Section //
 document.addEventListener('DOMContentLoaded', () => {
+    initPageContent();
+    initSearchFeature();
+    initAutoScroll();
+});
+
+async function initPageContent() {
+    await loadHTML('#header', 'header.html');
+    await loadHTML('#footer', 'footer.html');
+
     loadPopularMovies();
-    loadPopularCategories();
     loadTrendingShows();
     loadPopularCartoons();
+    loadPopularCategories();
+}
 
+function initSearchFeature() {
     setTimeout(() => {
         const searchButton = document.getElementById('searchButton');
         const closeButton = document.getElementById('closeButton');
         const searchContainer = document.querySelector('.search-container');
         const searchInput = document.getElementById('searchInput');
+        
         if (searchButton && closeButton && searchContainer && searchInput) {
             searchButton.addEventListener('click', () => {
                 searchContainer.classList.add('active');
                 searchInput.focus();
             });
-    
+
             closeButton.addEventListener('click', () => {
                 searchContainer.classList.remove('active');
                 searchInput.value = '';
             });
         }
-    }, 500)
+    }, 500);
+}
 
+function initAutoScroll() {
     const galleries = document.querySelectorAll('#movieGallery, #cartoonGallery, #tvShowGallery');
     galleries.forEach(gallery => {
         let scrollAmount = 0;
@@ -35,9 +49,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 scrollAmount = 0;
             }
         }
+
         setInterval(autoScroll, 20);
     });
-});
+}
+
+async function loadHTML(selector, url) {
+    try {
+        const response = await fetch(url);
+        const html = await response.text();
+        document.querySelector(selector).innerHTML = html;
+    } catch (error) {
+        console.error('Error loading HTML:', error);
+    }
+}
 
 function loadPopularMovies() {
     const movies = [
@@ -48,15 +73,7 @@ function loadPopularMovies() {
         { title: "Fight Club", img: "https://m.media-amazon.com/images/M/MV5BMmEzNTkxYjQtZTc0MC00YTVjLTg5ZTEtZWMwOWVlYzY0NWIwXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_FMjpg_UX1000_.jpg" },
         { title: "The Lord of the Rings", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwjvtARVQAFZvjgby4i1ev7I2h0OgHcG8YoQ&s" },
     ];
-    const galleryContainer = document.getElementById('movieGallery');
-    if (galleryContainer) {
-        galleryContainer.innerHTML = movies.map(movie => `
-            <div class="movie-card">
-                <img src="${movie.img}" alt="${movie.title}">
-                <div class="movie-info">${movie.title}</div>
-            </div>
-        `).join('');
-    }
+    renderGallery('movieGallery', 'movie-card', movies);
 }
 
 function loadTrendingShows() {
@@ -67,17 +84,8 @@ function loadTrendingShows() {
         { title: 'Sherlock', img: 'https://m.media-amazon.com/images/M/MV5BMWEzNTFlMTQtMzhjOS00MzQ1LWJjNjgtY2RhMjFhYjQwYjIzXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_.jpg' },
         { title: 'The Office', img: 'https://m.media-amazon.com/images/M/MV5BMDNkOTE4NDQtMTNmYi00MWE0LWE4ZTktYTc0NzhhNWIzNzJiXkEyXkFqcGdeQXVyMzQ2MDI5NjU@._V1_.jpg' },
         { title: 'Friends', img: 'https://m.media-amazon.com/images/M/MV5BNDVkYjU0MzctMWRmZi00NTkxLTgwZWEtOWVhYjZlYjllYmU4XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_FMjpg_UX1000_.jpg'},
-
     ];
-    const galleryContainer = document.getElementById('tvShowGallery');
-    if (galleryContainer) {
-        galleryContainer.innerHTML = tvShows.map(tvShow => `
-            <div class="tvshow-card">
-                <img src="${tvShow.img}" alt="${tvShow.title}">
-                <div class="tvshow-info">${tvShow.title}</div>
-            </div>
-        `).join('');
-    }
+    renderGallery('tvShowGallery', 'tvshow-card', tvShows);
 }
 
 function loadPopularCartoons() {
@@ -89,17 +97,8 @@ function loadPopularCartoons() {
         { title: 'Klaus', img: 'https://m.media-amazon.com/images/M/MV5BMWYwOThjM2ItZGYxNy00NTQwLWFlZWEtM2MzM2Q5MmY3NDU5XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UX1000_.jpg' },
         { title: 'Spiderman', img: 'https://m.media-amazon.com/images/M/MV5BMmQ1NzBlYmItNmZkZi00OTZkLTg5YTEtNTI5YjczZjk3Yjc1XkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_.jpg' },
     ];
-    const galleryContainer = document.getElementById('cartoonGallery');
-    if (galleryContainer) {
-        galleryContainer.innerHTML = cartoons.map(cartoon => `
-            <div class="cartoon-card">
-                <img src="${cartoon.img}" alt="${cartoon.title}">
-                <div class="cartoon-info">${cartoon.title}</div>
-            </div>
-        `).join('');
-    }
+    renderGallery('cartoonGallery', 'cartoon-card', cartoons);
 }
-
 
 function loadPopularCategories() {
     const categories = [
@@ -120,11 +119,20 @@ function loadPopularCategories() {
             img: "https://www.vanas.ca/images/blog/vfx-visual-effects-vanas.jpg"
         },
     ];
-
-    const container = document.querySelector('.categories');
-    container.innerHTML = categories.map(category => `
-        <div class="category-card" data-title="${category.title}" style="background-image: url('${category.img}');"></div>
-    `).join('');
+    renderGallery('categories', 'category-card', categories, true);
 }
+
+function renderGallery(containerId, cardClass, items, isCategory = false) {
+    const container = document.getElementById(containerId) || document.querySelector(`.${containerId}`);
+    if (container) {
+        container.innerHTML = items.map(item => `
+            <div class="${cardClass}" ${isCategory ? `data-title="${item.title}" style="background-image: url('${item.img}');"` : ''}>
+                ${!isCategory ? `<img src="${item.img}" alt="${item.title}">` : ``}
+                <div class="${cardClass}-info">${item.title}</div>
+            </div>
+        `).join('');
+    }
+}
+
 // The end of Home Page Section //
 
