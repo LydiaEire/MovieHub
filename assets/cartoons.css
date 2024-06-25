@@ -1,53 +1,36 @@
 * {
   box-sizing: border-box;
 }
-body {
-  background-color: #1a191f;
-  font-family: 'Open Sans', sans-serif;
+
+.main {
+  margin-bottom: 50px;
 }
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-.header__content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px;
-  height: 60px;
-}
-.header__logo {
-  font-size: 32px;
-  text-decoration: none;
-  color: white;
-}
-.header__search {
-  padding: 8px;
-  border: solid #1a191f;
-  border-radius: 5px;
-  outline: none;
-}
-.movies {
+
+.cartoons {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
 }
-.movie {
+
+.cartoon {
   width: 240px;
   margin: 10px;
   position: relative;
 }
-.movie__cover_inner {
+
+.cartoon__cover-inner {
   position: relative;
   height: 360px;
 }
-.movie__cover {
-  max-width: 100%;
+
+.cartoon-cover {
+  width: 100%;
   height: 100%;
 }
-.movie__cover_darkened {
-  background-color: #000000;
-  opacity: 0.1;
+
+.cartoon-cover_darkened {
+  background-color: black;
+  opacity: 0.2;
   position: absolute;
   top: 0;
   left: 0;
@@ -56,44 +39,51 @@ body {
   height: 100%;
   z-index: 1;
 }
-.movie__cover_darkened:hover {
+
+.cartoon-cover_darkened:hover {
   background-color: grey;
   cursor: pointer;
 }
-.movie__info {
-  padding: 10px 0px;
+
+.cartoon__info {
+  padding: 10px 0;
 }
-.movie__title {
+
+.cartoon__title {
   font-size: 16px;
-  color: white;
+  color: #000;
 }
-.movie__category {
+
+.cartoon__category {
   font-size: 14px;
-  color: #ffd80e;
+  color: #f74610;
 }
-.movie__year {
+
+.cartoon__average {
   position: absolute;
   top: 10px;
   left: 10px;
-  right: 0;
   border-radius: 50%;
-  height: 36px;
   width: 36px;
+  height: 36px;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   background-color: #1a191f;
-  color: white;
+  color: #fff;
   font-size: 14px;
 }
-.movie__year_green {
-  border: 1px solid green;
+
+.cartoon__average_green {
+  border: 2px solid green;
 }
-.movie__year_orange {
-  border: 1px solid orange;
+
+.cartoon__average_orange {
+  border: 2px solid orange;
 }
-.movie__year_red {
-  border: 1px solid red;
+
+.cartoon__average_red {
+  border: 2px solid red;
 }
 
 .modal {
@@ -109,6 +99,12 @@ body {
   transition: width 2s;
 }
 
+.modal-show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .modal__card {
   background-color: #ffffff;
   max-width: 600px;
@@ -120,23 +116,24 @@ body {
   flex-direction: column;
 }
 
-.modal__movie-backdrop {
+.modal__cartoon-backdrop {
   width: 200px;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
-.modal__movie-info {
+.modal__cartoon-info {
   margin-left: 20px;
+}
+
+.modal__cartoon-title {
+  color: #ffd80e;
+  text-align: center;
 }
 
 .modal__button-close {
   padding: 5px;
   margin: 10px;
   align-self: center;
-}
-
-.modal__movie-site {
-  color: #ffd80e;
 }
 
 ul li {
@@ -146,9 +143,4 @@ ul li {
 .stop-scrolling {
   height: 100%;
   overflow: hidden;
-}
-.modal__show {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+}/*# sourceMappingURL=cartoons.css.map */
