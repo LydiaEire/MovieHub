@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/main.css" />
     <link rel="stylesheet" href="./assets/series.scss" />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
       rel="stylesheet"
@@ -11,18 +13,33 @@
     <title>Сериалы</title>
   </head>
   <body>
-    <header class="container">
-      <div class="header__content">
-        <a href="index.html" class="header__logo">MovieHub</a>
-        <form>
-          <input type="text" class="header__search" placeholder="Поиск" />
-        </form>
-      </div>
-    </header>
     <div class="container">
-      <div class="movies"></div>
-      <div class="modal"></div>
+      <div id="header" class="header"></div>
+      <div class="header_container">
+        <div class="header__content">
+          <a href="series.html" class="header__logo">Сериалы</a>
+          <form>
+            <input type="text" class="header__search" placeholder="Поиск" />
+          </form>
+        </div>
+      </div>
+      <div>
+        <div class="movies"></div>
+        <div class="modal"></div>
+      </div>
+      <div id="footer" class="footer"></div>
     </div>
+    <script>
+      // Загрузка хедера
+      fetch('header.html')
+        .then((response) => response.text())
+        .then((data) => (document.getElementById('header').innerHTML = data));
+
+      // Загрузка футера
+      fetch('footer.html')
+        .then((response) => response.text())
+        .then((data) => (document.getElementById('footer').innerHTML = data));
+    </script>
     <script type="module" src="./js/series.js"></script>
   </body>
 </html>
