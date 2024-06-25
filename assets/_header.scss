@@ -1,17 +1,17 @@
 .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+
+  ul {
+    list-style-type: none;
+    padding: 0;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 0;
+    gap: 20px;
 
-    ul {
-        list-style-type: none;
-        padding: 0;
-        display: flex;
-        gap: 20px;
-
-        li {
-            display: inline;
+    li {
+      display: inline;
 
             a {
                 text-decoration: none;
@@ -20,17 +20,18 @@
             }
         }
     }
+  }
 }
 
 .logo-container {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .header-logo {
-    width: 40px; 
-    height: auto;
-    margin-right: 10px;
+  width: 40px;
+  height: auto;
+  margin-right: 10px;
 }
 
 .logo {
@@ -40,55 +41,55 @@
 }
 
 .search-container {
-    position: relative;
-    display: flex;
-    align-items: center;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 #searchInput {
-    display: none;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 5px 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    max-width: 200px;
-    width: 0;
-    transition: width 0.3s ease, display 0.3s ease;
+  display: none;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 200px;
+  width: 0;
+  transition: width 0.3s ease, display 0.3s ease;
 }
 
 #searchButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 #searchButton svg {
-    fill: #000;
-    width: 18px; 
-    height: 18px;
+  fill: #000;
+  width: 18px;
+  height: 18px;
 }
 
 #closeButton {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-left: 10px;
-    font-size: 18px;
-    color: #FFD700; 
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 18px;
+  color: #ffd700;
 }
 
 .search-container.active #searchInput {
-    display: block;
-    width: 200px;
+  display: block;
+  width: 200px;
 }
 
 .search-container.active #closeButton {
-    display: block;
+  display: block;
 }
 
 .search-container.active #searchButton {
-    display: none;
+  display: none;
 }

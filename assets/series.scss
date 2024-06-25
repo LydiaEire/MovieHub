@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 body {
-  background-color: #1a191f;
+  /* background-color: #1a191f; */
   font-family: 'Open Sans', sans-serif;
 }
 .container {
@@ -19,7 +19,8 @@ body {
 .header__logo {
   font-size: 32px;
   text-decoration: none;
-  color: white;
+  /* color: white; */
+  color: #000000;
 }
 .header__search {
   padding: 8px;
@@ -65,11 +66,13 @@ body {
 }
 .movie__title {
   font-size: 16px;
-  color: white;
+  /* color: white; */
+  color: #2e1114;
 }
 .movie__category {
   font-size: 14px;
-  color: #ffd80e;
+  /* color: #ffd80e; */
+  color: #97aabd;
 }
 .movie__year {
   position: absolute;
@@ -82,18 +85,22 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1a191f;
+  /* background-color: #1a191f; */
+
   color: white;
   font-size: 14px;
 }
 .movie__year_green {
-  border: 1px solid green;
+  /* border: 1px solid green; */
+  background-color: #802bb1;
 }
 .movie__year_orange {
-  border: 1px solid orange;
+  /* border: 1px solid orange; */
+  background-color: #edb5bf;
 }
 .movie__year_red {
-  border: 1px solid red;
+  /*  border: 1px solid red; */
+  background-color: #f3d250;
 }
 
 .modal {
@@ -108,31 +115,31 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
   transition: width 2s;
 }
-
 .modal__card {
   background-color: #ffffff;
   max-width: 600px;
   padding: 16px;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
-  background-color: #1a191f;
-  color: #ffffff;
+  /* background-color: #1a191f; 
+  color: #ffffff; */
   display: flex;
   flex-direction: column;
 }
-
 .modal__movie-backdrop {
   width: 200px;
   margin: 0 auto;
 }
-
 .modal__movie-info {
   margin-left: 20px;
 }
-
+.modal__movie-title {
+  color: #2e1114;
+}
 .modal__button-close {
   padding: 5px;
   margin: 10px;
   align-self: center;
+  background-color: #f3e0dc;
 }
 
 .modal__movie-site {
