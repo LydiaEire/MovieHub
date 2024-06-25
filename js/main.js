@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initPageContent();
     initSearchFeature();
     initAutoScroll();
+    initModalFeature();
 });
 
 async function initPageContent() {
@@ -22,7 +23,7 @@ function initSearchFeature() {
         const closeButton = document.getElementById('closeButton');
         const searchContainer = document.querySelector('.search-container');
         const searchInput = document.getElementById('searchInput');
-        
+
         if (searchButton && closeButton && searchContainer && searchInput) {
             searchButton.addEventListener('click', () => {
                 searchContainer.classList.add('active');
@@ -33,6 +34,8 @@ function initSearchFeature() {
                 searchContainer.classList.remove('active');
                 searchInput.value = '';
             });
+        } else {
+            console.error('Search feature elements not found.');
         }
     }, 500);
 }
@@ -55,11 +58,41 @@ function initAutoScroll() {
     });
 }
 
+function initModalFeature() {
+    const registerButton = document.getElementById('registerButton');
+    const registerModal = document.getElementById('registerModal');
+    const closeModal = document.getElementById('closeModal');
+
+    if (registerButton && registerModal && closeModal) {
+        registerButton.addEventListener('click', () => {
+            registerModal.style.display = 'block';
+        });
+
+        closeModal.addEventListener('click', () => {
+            registerModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === registerModal) {
+                registerModal.style.display = 'none';
+            }
+        });
+    } else {
+        console.error('Modal feature elements not found.');
+    }
+}
+
 async function loadHTML(selector, url) {
     try {
         const response = await fetch(url);
         const html = await response.text();
         document.querySelector(selector).innerHTML = html;
+
+        // Реконфигурация логики после загрузки HTML
+        if (selector === '#header') {
+            initSearchFeature();
+            initModalFeature();
+        }
     } catch (error) {
         console.error('Error loading HTML:', error);
     }
