@@ -1,4 +1,5 @@
 // Home Page Section //
+
 document.addEventListener('DOMContentLoaded', () => {
     initPageContent();
     initSearchFeature();

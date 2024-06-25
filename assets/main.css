@@ -426,7 +426,6 @@ body {
 }
 
 .category-card::after {
-  content: attr(data-title);
   position: absolute;
   bottom: 10px;
   left: 10px;
