@@ -1,0 +1,38 @@
+[
+    {
+        "title": "Alita: Battle Angel",
+        "date": "FEB 14, 2019",
+        "country": "USA",
+        "rating": "IMDB: 7.4/10",
+        "description": "A deactivated cyborg is revived, but cannot remember anything of her past life and goes on a quest to find out who she is.",
+        "img": "https://m.media-amazon.com/images/M/MV5BMTQzYWYwYjctY2JhZS00NTYzLTllM2UtZWY5ZTk0NmYwYzIyXkEyXkFqcGdeQXVyMzgxODM4NjM@._V1_.jpg",
+        "trailer_link": "https://www.youtube.com/watch?v=w7pYhpJaJW8&ab_channel=20thCenturyStudios"
+    },
+    {
+        "title": "Breaking Bad",
+        "date": "JAN 20, 2008",
+        "country": "USA",
+        "rating": "IMDB: 9.5/10",
+        "description": "A high school chemistry teacher turned methamphetamine producer runs into challenges as his drug empire grows.",
+        "img": "https://example.com/images/breaking_bad.jpg",
+        "trailer_link": "https://example.com/trailer/breaking_bad"
+    },
+    {
+        "title": "Frozen II",
+        "date": "NOV 22, 2019",
+        "country": "USA",
+        "rating": "IMDB: 7.0/10",
+        "description": "Anna, Elsa, Kristoff, Olaf, and Sven leave Arendelle to travel to an ancient, autumn-bound forest of an enchanted land.",
+        "img": "https://example.com/images/frozen2.jpg",
+        "trailer_link": "https://example.com/trailer/frozen2"
+    },
+    {
+        "title": "Stranger Things",
+        "date": "JUL 15, 2016",
+        "country": "USA",
+        "rating": "IMDB: 8.7/10",
+        "description": "A group of young kids in a small town unearths a series of supernatural mysteries, involving secret experiments and terrifying creatures.",
+        "img": "https://example.com/images/stranger_things.jpg",
+        "trailer_link": "https://example.com/trailer/stranger_things"
+    }
+]
