@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,10 +11,9 @@
     <title>Сериалы</title>
   </head>
   <body>
-    <div id="header" class="header"></div>
     <header class="container">
       <div class="header__content">
-        <a href="./index.html" class="header__logo">MovieHub</a>
+        <a href="index.html" class="header__logo">MovieHub</a>
         <form>
           <input type="text" class="header__search" placeholder="Поиск" />
         </form>
@@ -24,18 +23,6 @@
       <div class="movies"></div>
       <div class="modal"></div>
     </div>
-    <div id="footer" class="footer"></div>
-    <script>
-      // Загрузка хедера
-      fetch('header.html')
-        .then((response) => response.text())
-        .then((data) => (document.getElementById('header').innerHTML = data));
-
-      // Загрузка футера
-      fetch('footer.html')
-        .then((response) => response.text())
-        .then((data) => (document.getElementById('footer').innerHTML = data));
-    </script>
     <script type="module" src="./js/series.js"></script>
   </body>
 </html>
