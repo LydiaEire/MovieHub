@@ -3,7 +3,7 @@ body {
   font-family: "Montserrat", sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f5f5f5;
+  background: linear-gradient(135deg, #1d1c1c, #434343, #2c0303);
 }
 
 .container {
@@ -196,10 +196,10 @@ body {
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 20px;
+  font-size: 40px;
   font-weight: bold;
+  text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8);
 }
-
 .category-card:hover {
   transform: scale(1.05);
 }

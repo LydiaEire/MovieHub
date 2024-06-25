@@ -1,7 +1,6 @@
 @charset "UTF-8";
 /* Footer style */
 .footer {
-  background-color: #333;
   color: white;
   padding: 20px;
 }
@@ -150,6 +149,117 @@
   font-weight: 600;
 }
 
+.register-btn {
+  background-color: #fab005;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+.register-btn:hover {
+  background-color: #45a049;
+}
+
+/* Основные стили модального окна */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px); /* Размытие для фона */
+}
+
+/* Стили содержимого модального окна */
+.modal-content {
+  background-color: #fff; /* Белый фон */
+  margin: 10% auto; /* Центрирование модального окна */
+  padding: 30px 40px; /* Добавим отступы */
+  border-radius: 15px; /* Скругленные углы */
+  width: 80%;
+  max-width: 500px; /* Максимальная ширина */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Тень для содержимого */
+  transform: scale(0); /* Начальное состояние для анимации */
+  animation: popup 0.3s forwards; /* Анимация появления */
+}
+
+/* Кнопка закрытия модального окна */
+.close-modal-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #999;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+.close-modal-btn:hover {
+  color: #666;
+}
+
+/* Стиль для элементов формы */
+.form-structor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-title {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.input:focus {
+  border-color: #3b518a; /* Цвет рамки при фокусе */
+  outline: none;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #3b518a;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #5268b2;
+}
+
+/* Анимация для модального окна */
+@keyframes popup {
+  to {
+    transform: scale(1);
+  }
+}
 .logo-container {
   display: flex;
   align-items: center;
@@ -205,7 +315,7 @@
   cursor: pointer;
   margin-left: 10px;
   font-size: 18px;
-  color: #FFD700;
+  color: #ffd700;
 }
 
 .search-container.active #searchInput {
@@ -225,7 +335,7 @@ body {
   font-family: "Montserrat", sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f5f5f5;
+  background: linear-gradient(135deg, #1d1c1c, #434343, #2c0303);
 }
 
 .container {
@@ -418,10 +528,10 @@ body {
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 20px;
+  font-size: 40px;
   font-weight: bold;
+  text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8);
 }
-
 .category-card:hover {
   transform: scale(1.05);
 }
@@ -625,7 +735,7 @@ ul li {
 }
 
 body {
-  background-color: #1a191f;
+  /* background-color: #1a191f; */
   font-family: "Open Sans", sans-serif;
 }
 
@@ -645,7 +755,8 @@ body {
 .header__logo {
   font-size: 32px;
   text-decoration: none;
-  color: white;
+  /* color: white; */
+  color: #000000;
 }
 
 .header__search {
@@ -700,12 +811,14 @@ body {
 
 .movie__title {
   font-size: 16px;
-  color: white;
+  /* color: white; */
+  color: #2e1114;
 }
 
 .movie__category {
   font-size: 14px;
-  color: #ffd80e;
+  /* color: #ffd80e; */
+  color: #97aabd;
 }
 
 .movie__year {
@@ -719,21 +832,24 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1a191f;
+  /* background-color: #1a191f; */
   color: white;
   font-size: 14px;
 }
 
 .movie__year_green {
-  border: 1px solid green;
+  /* border: 1px solid green; */
+  background-color: #802bb1;
 }
 
 .movie__year_orange {
-  border: 1px solid orange;
+  /* border: 1px solid orange; */
+  background-color: #edb5bf;
 }
 
 .movie__year_red {
-  border: 1px solid red;
+  /*  border: 1px solid red; */
+  background-color: #f3d250;
 }
 
 .modal {
@@ -754,8 +870,8 @@ body {
   max-width: 600px;
   padding: 16px;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
-  background-color: #1a191f;
-  color: #ffffff;
+  /* background-color: #1a191f; 
+  color: #ffffff; */
   display: flex;
   flex-direction: column;
 }
@@ -769,10 +885,15 @@ body {
   margin-left: 20px;
 }
 
+.modal__movie-title {
+  color: #2e1114;
+}
+
 .modal__button-close {
   padding: 5px;
   margin: 10px;
   align-self: center;
+  background-color: #f3e0dc;
 }
 
 .modal__movie-site {

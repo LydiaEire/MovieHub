@@ -10,7 +10,6 @@
 <body>
     <div class="container">
         <div id="header" class="header"></div>
-
         <div class="main-content">
             <div class="text-section">
                 <div class="metadata">
@@ -63,6 +62,32 @@
         </div>
 
         <div id="footer" class="footer"></div>
+        <div id="registerModal" class="modal">
+            <div class="modal-content">
+                <div class="form-structor">
+                    <div class="signup">
+                        <h2 class="form-title" id="signup">Sign up</h2>
+                        <div class="form-holder">
+                            <input type="text" class="input" placeholder="Name" />
+                            <input type="email" class="input" placeholder="Email" />
+                            <input type="password" class="input" placeholder="Password" />
+                        </div>
+                        <button class="submit-btn">Sign up</button>
+                    </div>
+                    <div class="login slide-up">
+                        <div class="center">
+                            <h2 class="form-title" id="login">Log in</h2>
+                            <div class="form-holder">
+                                <input type="email" class="input" placeholder="Email" />
+                                <input type="password" class="input" id="password" placeholder="Password" />
+                            </div>
+                            <button class="submit-btn">Log in</button>
+                        </div>
+                    </div>
+                </div>
+                <button id="closeModal" class="close-modal-btn">&times;</button>
+            </div>
+        </div>
     </div>
     <script>
         // Загрузка хедера
