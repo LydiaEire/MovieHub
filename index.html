@@ -10,23 +10,7 @@
 <body>
     <div class="container">
         <div id="header" class="header"></div>
-        <div class="main-content">
-            <div class="text-section">
-                <div class="metadata">
-                    <span>USA</span>
-                    <span>|</span>
-                    <span>FEB 14, 2019</span>
-                    <span>|</span>
-                    <span>IMDB: 7.4/10</span>
-                </div>
-                <h1>Alita: Battle Angel</h1>
-                <p>A deactivated cyborg is revived, but cannot remember anything of her past life and goes on a quest to find out who she is.</p>
-                <a href="#" class="watch-btn">WATCH TRAILER</a>
-            </div>
-            <div class="image-section">
-                <img src="https://m.media-amazon.com/images/M/MV5BMTQzYWYwYjctY2JhZS00NTYzLTllM2UtZWY5ZTk0NmYwYzIyXkEyXkFqcGdeQXVyMzgxODM4NjM@._V1_.jpg" alt="Alita: Battle Angel">
-            </div>
-        </div>
+        <div class="main-content" id="mainContent"></div>
         
         <!-- Popular Movies Section -->
         <section class="popular-movies">
@@ -90,17 +74,74 @@
         </div>
     </div>
     <script>
-        // Загрузка хедера
+        // Функция загрузки данных из JSON
+        async function loadMedia() {
+            const response = await fetch('media.json');
+            const media = await response.json();
+            
+            const mainContent = document.getElementById('mainContent');
+            const movieGallery = document.getElementById('movieGallery');
+            const tvShowGallery = document.getElementById('tvShowGallery');
+            const cartoonGallery = document.getElementById('cartoonGallery');
+            
+            media.forEach((item, index) => {
+                const mediaHTML = `
+                    <div class="text-section">
+                        <div class="metadata">
+                            <span>${item.country}</span>
+                            <span>|</span>
+                            <span>${item.date}</span>
+                            <span>|</span>
+                            <span>${item.rating}</span>
+                        </div>
+                        <h1>${item.title}</h1>
+                        <p>${item.description}</p>
+                        <a href="${item.trailer_link}" class="watch-btn">WATCH TRAILER</a>
+                    </div>
+                    <div class="image-section">
+                        <img src="${item.img}" alt="${item.title}">
+                    </div>
+                `;
+                
+                const mediaBlock = document.createElement('div');
+                mediaBlock.className = 'main-content';
+                mediaBlock.innerHTML = mediaHTML;
+
+                if (index === 0) {
+                    mainContent.appendChild(mediaBlock);
+                }
+
+                const galleryItem = `
+                    <div class="media-item">
+                        <img src="${item.img}" alt="${item.title}">
+                        <h3>${item.title}</h3>
+                    </div>
+                `;
+                
+                if (item.type === 'movie') {
+                    movieGallery.innerHTML += galleryItem;
+                } else if (item.type === 'tvshow') {
+                    tvShowGallery.innerHTML += galleryItem;
+                } else if (item.type === 'cartoon') {
+                    cartoonGallery.innerHTML += galleryItem;
+                }
+            });
+        }
+
+        // Загрузка хедера и футера
         fetch('header.html')
             .then(response => response.text())
             .then(data => document.getElementById('header').innerHTML = data);
-
-        // Загрузка футера
+        
         fetch('footer.html')
             .then(response => response.text())
             .then(data => document.getElementById('footer').innerHTML = data);
+        
+        // Загрузка медиа данных
+        loadMedia();
     </script>
     <script type="module" src="js/main.js"></script>
 </body>
 </html>
+
 
