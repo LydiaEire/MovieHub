@@ -13,11 +13,12 @@
     li {
       display: inline;
 
-      a {
-        text-decoration: none;
-        color: #000;
-        font-weight: 600;
-      }
+            a {
+                text-decoration: none;
+                color: #fab005;
+                font-weight: 600;
+            }
+        }
     }
   }
 }
@@ -34,9 +35,9 @@
 }
 
 .logo {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: black;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #fab005; 
 }
 
 .search-container {
