@@ -199,13 +199,15 @@ body {
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 20px;
+    font-size: 40px;
     font-weight: bold;
+    text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8); 
+
+    &:hover {
+        transform: scale(1.05);
+    }
 }
 
-.category-card:hover {
-    transform: scale(1.05);
-}
 
 
 .info-section {
