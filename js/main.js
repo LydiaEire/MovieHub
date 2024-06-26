@@ -17,7 +17,7 @@ async function initPageContent() {
     loadPopularCategories();
 }
 
-function initSearchFeature() {
+export function initSearchFeature() {
     setTimeout(() => {
         const searchButton = document.getElementById('searchButton');
         const closeButton = document.getElementById('closeButton');
@@ -58,7 +58,7 @@ function initAutoScroll() {
     });
 }
 
-function initModalFeature() {
+export function initModalFeature() {
     const registerButton = document.getElementById('registerButton');
     const registerModal = document.getElementById('registerModal');
     const closeModal = document.getElementById('closeModal');
