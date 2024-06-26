@@ -61,6 +61,14 @@ function showCartoons(data) {
 
 //Поиск по ключевому слову
 
+import { initSearchFeature } from './main.js';
+initSearchFeature();
+
+
+// форма регистрации
+import { initModalFeature } from './main.js';
+initModalFeature();
+
 // async function getVideoByKeyword(url) {
 //   const resp = await fetch(url, {
 //       headers: {
