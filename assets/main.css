@@ -335,7 +335,7 @@ body {
   font-family: "Montserrat", sans-serif;
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #1d1c1c, #434343, #2c0303);
+  background: linear-gradient(135deg, #1d1c1c, #434343, #240303);
 }
 
 .container {
@@ -561,7 +561,7 @@ body {
 
 .info-section p {
   margin-bottom: 20px;
-  color: #666;
+  color: #c7c5c5;
   font-size: 1em;
   text-align: center;
 }
@@ -636,12 +636,13 @@ body {
 
 .cartoon__title {
   font-size: 16px;
-  color: #000;
+  font-weight: 600;
+  color: #fab005;
 }
 
 .cartoon__category {
   font-size: 14px;
-  color: #f74610;
+  color: #97aabd;
 }
 
 .cartoon__average {
@@ -732,11 +733,6 @@ ul li {
 
 * {
   box-sizing: border-box;
-}
-
-body {
-  /* background-color: #1a191f; */
-  font-family: "Open Sans", sans-serif;
 }
 
 .container {

@@ -1,23 +1,26 @@
 // Home Page Section //
 
-document.addEventListener('DOMContentLoaded', () => {
-    initPageContent();
+document.addEventListener('DOMContentLoaded', async () => {
+    await initPageContent();
     initSearchFeature();
     initAutoScroll();
     initModalFeature();
 });
 
 async function initPageContent() {
-    await loadHTML('#header', 'header.html');
-    await loadHTML('#footer', 'footer.html');
-
-    loadPopularMovies();
-    loadTrendingShows();
-    loadPopularCartoons();
-    loadPopularCategories();
+    try {
+        await loadHTML('#header', 'header.html');
+        await loadHTML('#footer', 'footer.html');
+        loadPopularMovies();
+        loadTrendingShows();
+        loadPopularCartoons();
+        loadPopularCategories();
+    } catch (error) {
+        console.error('Failed to initialize page content', error);
+    }
 }
 
-export function initSearchFeature() {
+function initSearchFeature() {
     setTimeout(() => {
         const searchButton = document.getElementById('searchButton');
         const closeButton = document.getElementById('closeButton');
@@ -58,7 +61,7 @@ function initAutoScroll() {
     });
 }
 
-export function initModalFeature() {
+function initModalFeature() {
     const registerButton = document.getElementById('registerButton');
     const registerModal = document.getElementById('registerModal');
     const closeModal = document.getElementById('closeModal');
@@ -167,6 +170,7 @@ function renderGallery(containerId, cardClass, items, isCategory = false) {
         `).join('');
     }
 }
+
 
 // The end of Home Page Section //
 
