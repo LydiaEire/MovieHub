@@ -7,6 +7,14 @@ const API_URL_DETAILS = 'https://kinopoiskapiunofficial.tech/api/v2.2/films/';
 
 getSeries(API_URL_POPULAR);
 
+//Поиск по ключевому слову
+import { initSearchFeature } from './main.js';
+initSearchFeature();
+
+// форма регистрации
+import { initModalFeature } from './main.js';
+initModalFeature();
+
 async function getSeries(url, type = 'items') {
   const resp = await fetch(url, {
     headers: {
@@ -106,8 +114,13 @@ async function openModal(id) {
     <div class="modal__card">
       <img class="modal__movie-backdrop" src="${respData.posterUrl}" alt="">
       <h2>
-        <span class="modal__movie-title">${respData.nameRu}, </span>
-        <span class="modal__movie-release-year"> ${respData.year} год</span>
+        <span class="modal__movie-title">${respData.nameRu}</span>
+        ${
+          respData.year
+            ? `<span class="modal__movie-release-year">- ${respData.year} год</span>`
+            : ''
+        }
+    </h2>
       </h2>
       <ul class="modal__movie-info">
         <div class="loader"></div>
