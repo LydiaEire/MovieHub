@@ -1,19 +1,24 @@
 // Home Page Section //
-
 document.addEventListener('DOMContentLoaded', async () => {
-    await initPageContent();
-    initSearchFeature();
-    initAutoScroll();
-    initModalFeature();
+    console.log('DOM fully loaded and parsed');
+    try {
+        await initPageContent();
+        initSearchFeature();
+        initAutoScroll();
+        initModalFeature();
+    } catch (error) {
+        console.error('Error during DOMContentLoaded', error);
+    }
 });
 
 async function initPageContent() {
     try {
+        console.log('Initializing page content...');
         await loadHTML('#header', 'header.html');
         await loadHTML('#footer', 'footer.html');
-        loadPopularMovies();
-        loadTrendingShows();
-        loadPopularCartoons();
+        await loadPopularMovies();
+        await loadTrendingShows();
+        await loadPopularCartoons();
         loadPopularCategories();
     } catch (error) {
         console.error('Failed to initialize page content', error);
@@ -22,6 +27,7 @@ async function initPageContent() {
 
 function initSearchFeature() {
     setTimeout(() => {
+        console.log('Initializing search feature...');
         const searchButton = document.getElementById('searchButton');
         const closeButton = document.getElementById('closeButton');
         const searchContainer = document.querySelector('.search-container');
@@ -44,16 +50,17 @@ function initSearchFeature() {
 }
 
 function initAutoScroll() {
-    const galleries = document.querySelectorAll('#movieGallery, #cartoonGallery, #tvShowGallery');
+    console.log('Initializing auto scroll...');
+    const galleries = document.querySelectorAll('.gallery-container');
     galleries.forEach(gallery => {
         let scrollAmount = 0;
 
         function autoScroll() {
-            gallery.scrollBy(1, 0);
-            scrollAmount += 1;
-            if (scrollAmount >= gallery.scrollWidth) {
-                gallery.scrollTo(0, 0);
-                scrollAmount = 0;
+            if (gallery.scrollLeft !== 0 && scrollAmount >= gallery.scrollWidth - gallery.clientWidth) {
+                gallery.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                gallery.scrollBy({ left: 1, behavior: 'smooth' });
+                scrollAmount += 1;
             }
         }
 
@@ -62,6 +69,7 @@ function initAutoScroll() {
 }
 
 function initModalFeature() {
+    console.log('Initializing modal feature...');
     const registerButton = document.getElementById('registerButton');
     const registerModal = document.getElementById('registerModal');
     const closeModal = document.getElementById('closeModal');
@@ -87,54 +95,68 @@ function initModalFeature() {
 
 async function loadHTML(selector, url) {
     try {
+        console.log(`Loading HTML for ${selector} from ${url}`);
         const response = await fetch(url);
         const html = await response.text();
         document.querySelector(selector).innerHTML = html;
 
-        // Реконфигурация логики после загрузки HTML
+        // Reinitialize search and modal features after header is loaded
         if (selector === '#header') {
             initSearchFeature();
             initModalFeature();
         }
     } catch (error) {
-        console.error('Error loading HTML:', error);
+        console.error(`Error loading HTML into ${selector}:`, error);
     }
 }
 
-function loadPopularMovies() {
-    const movies = [
-        { title: "Avengers: Endgame", img: "https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg" },
-        { title: "Joker", img: "https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg" },
-        { title: "Earth", img: "https://m.media-amazon.com/images/M/MV5BMTU0N2Y5OWUtMjk5Zi00ZTkyLWEwZWItNTk2ZDlhN2E0MjQyXkEyXkFqcGdeQXVyMTY4NDIxODQ0._V1_.jpg" },
-        { title: "Pulp Fiction", img: "https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2ItYzViMjE3YzI5MjljXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg" },
-        { title: "Fight Club", img: "https://m.media-amazon.com/images/M/MV5BMmEzNTkxYjQtZTc0MC00YTVjLTg5ZTEtZWMwOWVlYzY0NWIwXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_FMjpg_UX1000_.jpg" },
-        { title: "The Lord of the Rings", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwjvtARVQAFZvjgby4i1ev7I2h0OgHcG8YoQ&s" },
-    ];
-    renderGallery('movieGallery', 'movie-card', movies);
+async function fetchAPI(url) {
+    console.log(`Fetching data from ${url}`);
+    const response = await fetch(url, {
+        headers: {
+            'Content-Type': 'application/json',
+            'X-API-KEY': API_KEY,
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error(`Failed to fetch data: ${response.statusText}`);
+    }
+
+    return response.json();
 }
 
-function loadTrendingShows() {
-    const tvShows = [
-        { title: "House of Dragon", img: "https://m.media-amazon.com/images/M/MV5BM2QzMGVkNjUtN2Y4Yi00ODMwLTg3YzktYzUxYjJlNjFjNDY1XkEyXkFqcGc@._V1_.jpg" },
-        { title: 'Breaking Bad', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7AUQ1ap545wJq1Op_9GPLFAV15boesLoyZA&s' },
-        { title: 'Supernatural', img: 'https://m.media-amazon.com/images/M/MV5BNzRmZWJhNjUtY2ZkYy00N2MyLWJmNTktOTAwY2VkODVmOGY3XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UX1000_.jpg' },
-        { title: 'Sherlock', img: 'https://m.media-amazon.com/images/M/MV5BMWEzNTFlMTQtMzhjOS00MzQ1LWJjNjgtY2RhMjFhYjQwYjIzXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_.jpg' },
-        { title: 'The Office', img: 'https://m.media-amazon.com/images/M/MV5BMDNkOTE4NDQtMTNmYi00MWE0LWE4ZTktYTc0NzhhNWIzNzJiXkEyXkFqcGdeQXVyMzQ2MDI5NjU@._V1_.jpg' },
-        { title: 'Friends', img: 'https://m.media-amazon.com/images/M/MV5BNDVkYjU0MzctMWRmZi00NTkxLTgwZWEtOWVhYjZlYjllYmU4XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_FMjpg_UX1000_.jpg'},
-    ];
-    renderGallery('tvShowGallery', 'tvshow-card', tvShows);
+async function loadPopularMovies() {
+    try {
+        console.log('Loading popular movies...');
+        const data = await fetchAPI(API_URL_NEW_MOVIES);
+        const movieGallery = document.getElementById('movieGallery');
+        movieGallery.innerHTML = data.films.map((movie) => renderTemplate(movie)).join('');
+    } catch (error) {
+        console.error('Error loading popular movies:', error);
+    }
 }
 
-function loadPopularCartoons() {
-    const cartoons = [
-        { title: "Frozen II", img: "https://m.media-amazon.com/images/I/81gZRcu9l5L._AC_UF1000,1000_QL80_.jpg" },
-        { title: "Toy Story 4", img: "https://m.media-amazon.com/images/M/MV5BMTYzMDM4NzkxOV5BMl5BanBnXkFtZTgwNzM1Mzg2NzM@._V1_.jpg" },
-        { title: "The Lion King", img: "https://m.media-amazon.com/images/M/MV5BMjIwMjE1Nzc4NV5BMl5BanBnXkFtZTgwNDg4OTA1NzM@._V1_.jpg" },
-        { title: 'Spirited away', img: 'https://m.media-amazon.com/images/M/MV5BMjlmZmI5MDctNDE2YS00YWE0LWE5ZWItZDBhYWQ0NTcxNWRhXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg' },
-        { title: 'Klaus', img: 'https://m.media-amazon.com/images/M/MV5BMWYwOThjM2ItZGYxNy00NTQwLWFlZWEtM2MzM2Q5MmY3NDU5XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UX1000_.jpg' },
-        { title: 'Spiderman', img: 'https://m.media-amazon.com/images/M/MV5BMmQ1NzBlYmItNmZkZi00OTZkLTg5YTEtNTI5YjczZjk3Yjc1XkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_.jpg' },
-    ];
-    renderGallery('cartoonGallery', 'cartoon-card', cartoons);
+async function loadTrendingShows() {
+    try {
+        console.log('Loading trending shows...');
+        const data = await fetchAPI(API_URL_NEW_SERIES);
+        const tvShowGallery = document.getElementById('tvShowGallery');
+        tvShowGallery.innerHTML = data.items.map((show) => renderTemplate(show)).join('');
+    } catch (error) {
+        console.error('Error loading trending shows:', error);
+    }
+}
+
+async function loadPopularCartoons() {
+    try {
+        console.log('Loading popular cartoons...');
+        const data = await fetchAPI(API_URL_NEW_CARTOONS);
+        const cartoonGallery = document.getElementById('cartoonGallery');
+        cartoonGallery.innerHTML = data.films.map((cartoon) => renderTemplate(cartoon)).join('');
+    } catch (error) {
+        console.error('Error loading popular cartoons:', error);
+    }
 }
 
 function loadPopularCategories() {
@@ -159,18 +181,38 @@ function loadPopularCategories() {
     renderGallery('categories', 'category-card', categories, true);
 }
 
+const API_KEY = '827c7dbe-9cd5-489c-9eb6-31db220697f9';
+const API_URL_NEW_MOVIES = 'https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_100_POPULAR_FILMS&page=1';
+const API_URL_NEW_SERIES = 'https://kinopoiskapiunofficial.tech/api/v2.2/films?yearFrom=2023&yearTo=2024&order=RATING&type=TV_SERIES&page=1';
+const API_URL_NEW_CARTOONS = 'https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_100_POPULAR_CARTOONS&page=1';
+
+function renderTemplate(data) {
+    return `
+        <div class="media-item">
+            <div class="media-item__cover_inner">
+                <img src="${data.posterUrlPreview}" class="media-item__cover" alt="${data.nameRu}">
+                <div class="media-item__cover_darkened"></div>
+            </div>
+            <div class="media-item__info">
+                <div class="media-item__title">${data.nameRu}</div>
+                <div class="media-item__category">${data.genres.map(genre => genre.genre).join(', ')}</div>
+                <div class="media-item__year">${data.year}</div>
+            </div>
+        </div>
+    `;
+}
+
 function renderGallery(containerId, cardClass, items, isCategory = false) {
     const container = document.getElementById(containerId) || document.querySelector(`.${containerId}`);
     if (container) {
         container.innerHTML = items.map(item => `
-            <div class="${cardClass}" ${isCategory ? `data-title="${item.title}" style="background-image: url('${item.img}');"` : ''}>
-                ${!isCategory ? `<img src="${item.img}" alt="${item.title}">` : ``}
+            <div class="${cardClass}" ${isCategory ? `data-title="${item.title}" style="background-image: url('${item.img}')"` : ''}>
+                ${!isCategory ? `<img src="${item.img}" alt="${item.title}">` : ''}
                 <div class="${cardClass}-info">${item.title}</div>
             </div>
         `).join('');
     }
 }
-
-
+export { initSearchFeature, initModalFeature };
 // The end of Home Page Section //
 
