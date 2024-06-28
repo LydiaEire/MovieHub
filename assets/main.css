@@ -313,6 +313,7 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  margin-left: 50px;
 }
 
 #searchButton svg {
@@ -352,8 +353,72 @@
   font-weight: bold;
   transition: background-color 0.3s ease;
   text-align: center;
+  margin-left: 50px;
 }
 
+.burger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.burger-menu__line {
+  height: 3px;
+  width: 24px;
+  background-color: #333;
+  border-radius: 2px;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-menu ul {
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .burger-menu {
+    display: flex;
+  }
+  .navbar-menu {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+  .navbar-menu.show {
+    display: flex;
+  }
+  .navbar ul {
+    flex-direction: column;
+    width: 100%;
+  }
+  .navbar-menu ul {
+    width: 100%;
+  }
+  .navbar-menu ul li {
+    width: 100%;
+    text-align: left;
+  }
+  .navbar-menu ul li a {
+    width: 100%;
+    display: block;
+    padding: 10px;
+  }
+  .search-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+}
 body {
   font-family: "Montserrat", sans-serif;
   margin: 0;
