@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         initSearchFeature();
         initAutoScroll();
         initModalFeature();
+        initBurgerMenu(); 
     } catch (error) {
         console.error('Error during DOMContentLoaded', error);
     }
@@ -123,9 +124,24 @@ async function loadHTML(selector, url) {
         if (selector === '#header') {
             initSearchFeature();
             initModalFeature();
+            initBurgerMenu();
         }
     } catch (error) {
         console.error(`Error loading HTML into ${selector}:`, error);
+    }
+}
+
+function initBurgerMenu() {
+    console.log('Initializing burger menu...');
+    const burgerMenuButton = document.querySelector('.burger-menu');
+    const menu = document.querySelector('.navbar-menu');
+
+    if (burgerMenuButton && menu) {
+        burgerMenuButton.addEventListener('click', () => {
+            menu.classList.toggle('show');
+        });
+    } else {
+        console.error('Burger menu elements not found.');
     }
 }
 
@@ -149,13 +165,19 @@ async function loadPopularMovies() {
     try {
         console.log('Loading popular movies...');
         const data = await fetchAPI(API_URL_NEW_MOVIES);
+        const filteredMovies = filterMovies(data.films); 
         const movieGallery = document.getElementById('movieGallery');
-        movieGallery.innerHTML = data.films.map((movie) => renderTemplate(movie)).join('');
-        movieGallery.classList.add('gallery-content'); // Add this class for JS reference
-
+        movieGallery.innerHTML = filteredMovies.map((movie) => renderTemplate(movie)).join('');
+        movieGallery.classList.add('gallery-content');
     } catch (error) {
         console.error('Error loading popular movies:', error);
     }
+}
+
+function filterMovies(movies) {
+    return movies.filter(movie => {
+        return !movie.genres.some(genre => genre.genre.toLowerCase().includes('мультфильм') || genre.genre.toLowerCase().includes('мультфильмы'));
+    });
 }
 
 async function loadTrendingShows() {
@@ -164,7 +186,7 @@ async function loadTrendingShows() {
         const data = await fetchAPI(API_URL_NEW_SERIES);
         const tvShowGallery = document.getElementById('tvShowGallery');
         tvShowGallery.innerHTML = data.items.map((show) => renderTemplate(show)).join('');
-        tvShowGallery.classList.add('gallery-content'); // Add this class for JS reference
+        tvShowGallery.classList.add('gallery-content'); 
         
     } catch (error) {
         console.error('Error loading trending shows:', error);
@@ -236,6 +258,7 @@ function renderGallery(containerId, cardClass, items, isCategory = false) {
         `).join('');
     }
 }
+
 export { initSearchFeature, initModalFeature };
 // The end of Home Page Section //
 
