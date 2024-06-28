@@ -10,18 +10,28 @@
 <body>
     <div class="container">
         <div id="header" class="header"></div>
-        <div class="main-content" id="mainContent"></div>
+        <div class="main-content" id="mainContent">
+        </div>
 
         <!-- Popular Movies Section -->
         <section class="popular-movies">
             <h2>Новинки фильмов</h2>
-            <div class="gallery-container" id="movieGallery"></div>
+            <div class="gallery-container">
+                <button class="navigation-button left">&#9664;</button>
+                <div id="movieGallery" class="gallery-content popular-movies"></div>
+                <button class="navigation-button right">&#9654;</button>
+            </div>
         </section>
         
         <!-- Trending TV shows Section -->
         <section class="trending-shows">
             <h2>Новинки сериалов и анимации</h2>
-            <div class="gallery-container" id="tvShowGallery"></div>
+            <div class="gallery-container">
+                <button class="navigation-button left">&#9664;</button>
+                <div id="tvShowGallery" class="gallery-content trending-shows"></div>
+                <button class="navigation-button right">&#9654;</button>
+            </div>
+            
         </section>
 
 
