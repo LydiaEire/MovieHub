@@ -47,9 +47,17 @@ body {
     background-color: #ffdd57;
     color: #000;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
     border-radius: 5px;
-}
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    text-align: center;
+    margin-top: auto;
+
+    &:hover {
+        background-color:#fab005;
+    }}
+
 
 .main-content .image-section {
     max-width: 40%;
@@ -60,19 +68,33 @@ body {
     border-radius: 10px;
 }
 
-.popular-movies {
+/* Popular Movies and Trending Shows styles */
+.popular-movies, .trending-shows {
     padding: 20px;
+}
+
+.popular-movies h2, .trending-shows h2 {
+    color: #FFC107;
 }
 
 /* Общие стили для галерей */
 .gallery-container {
     display: flex;
-    overflow-x: auto;
+    overflow-x: hidden;
+    overflow-y: hidden;
     scroll-behavior: smooth;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+.gallery-content {
+    display: flex;
+    overflow-x: auto;
+   // scroll-behavior: smooth;//
     padding-bottom: 10px;
 }
 
-.gallery-container::-webkit-scrollbar {
+.gallery-content::-webkit-scrollbar {
     display: none; /* Скрыть полосу прокрутки */
 }
 
@@ -154,42 +176,37 @@ body {
     border-radius: 5px;
 }
 
-.info-section {
-    flex: 1;
-    padding-left: 30px;
+/* Стили навигационных стрелок */
+.navigation-button {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 10;
+    transition: background-color 0.3s ease;
 }
 
-/* Медиазапросы для заголовка и кнопки */
-@media (max-width: 768px) {
-    .info-section {
-    order: 1;
-    padding-left: 0;
-    margin-top: 20px;
-    }
-}
-  
-.info-section h2 {
-    font-size: 2em;
-    margin-bottom: 10px;
-    text-align: center;
-    color: #FFC107;
-}
-  
-.info-section p {
-    margin-bottom: 20px;
-    color: #c7c5c5;
-    font-size: 1em;
-    text-align: center;
+.navigation-button.left {
+    left: 10px;
 }
 
-.popular-movies, .trending-shows h2 {
-    color: #FFC107;
+.navigation-button.right {
+    right: 10px;
 }
+
+.navigation-button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
 /* Popular Categories style */
-
 .popular-categories {
     display: flex;
     flex-wrap: wrap;
@@ -277,22 +294,22 @@ body {
     align-items: center;
 }
 
+.info-section h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #FFC107;
+}
+
+.info-section p {
+    margin-bottom: 20px;
+    color: #c7c5c5;
+    font-size: 1em;
+    text-align: center;
+}
+
 /* Медиазапросы для заголовка и кнопки */
 @media (max-width: 768px) {
-    .info-section h2 {
-        font-size: 2em;
-        margin-bottom: 10px;
-        text-align: center;
-        color: #FFC107;
-    }
-
-    .info-section p {
-        margin-bottom: 20px;
-        color: #c7c5c5;
-        font-size: 1em;
-        text-align: center;
-    }
-
     .info-section {
         order: 1;
         padding-left: 0;

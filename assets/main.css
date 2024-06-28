@@ -158,9 +158,12 @@
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s ease;
+  font-weight: bold;
+  text-align: center;
+  margin-top: auto;
 }
 .register-btn:hover {
-  background-color: #45a049;
+  background-color: #fab005;
 }
 
 /* Основные стили модального окна */
@@ -173,22 +176,22 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
+  background-color: rgba(0, 0, 0, 0.5);
   -webkit-backdrop-filter: blur(5px);
-          backdrop-filter: blur(5px); /* Размытие для фона */
+          backdrop-filter: blur(5px);
 }
 
 /* Стили содержимого модального окна */
 .modal-content {
-  background-color: #fff; /* Белый фон */
-  margin: 10% auto; /* Центрирование модального окна */
-  padding: 30px 40px; /* Добавим отступы */
-  border-radius: 15px; /* Скругленные углы */
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 30px 40px;
+  border-radius: 15px;
   width: 80%;
-  max-width: 500px; /* Максимальная ширина */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Тень для содержимого */
-  transform: scale(0); /* Начальное состояние для анимации */
-  animation: popup 0.3s forwards; /* Анимация появления */
+  max-width: 500px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(0);
+  animation: popup 0.3s forwards;
 }
 
 /* Кнопка закрытия модального окна */
@@ -234,7 +237,7 @@
 }
 
 .input:focus {
-  border-color: #3b518a; /* Цвет рамки при фокусе */
+  border-color: #3b518a;
   outline: none;
 }
 
@@ -265,6 +268,12 @@
   align-items: center;
 }
 
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
 .header-logo {
   width: 40px;
   height: auto;
@@ -272,9 +281,13 @@
 }
 
 .logo {
-  font-size: 1.5em;
+  font-size: 24px;
   font-weight: bold;
-  color: #fab005;
+  color: #fff;
+}
+
+.logo-link:hover .logo, .logo-link:hover .header-logo {
+  opacity: 0.8;
 }
 
 .search-container {
@@ -331,6 +344,16 @@
   display: none;
 }
 
+.register-btn {
+  background-color: #FFD700;
+  color: #000;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
 body {
   font-family: "Montserrat", sans-serif;
   margin: 0;
@@ -380,8 +403,15 @@ body {
   background-color: #ffdd57;
   color: #000;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
   border-radius: 5px;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  text-align: center;
+  margin-top: auto;
+}
+.main-content .text-section .watch-btn:hover {
+  background-color: #fab005;
 }
 
 .main-content .image-section {
@@ -393,19 +423,32 @@ body {
   border-radius: 10px;
 }
 
-.popular-movies {
+/* Popular Movies and Trending Shows styles */
+.popular-movies, .trending-shows {
   padding: 20px;
+}
+
+.popular-movies h2, .trending-shows h2 {
+  color: #FFC107;
 }
 
 /* Общие стили для галерей */
 .gallery-container {
   display: flex;
-  overflow-x: auto;
+  overflow-x: hidden;
+  overflow-y: hidden;
   scroll-behavior: smooth;
+  padding-bottom: 10px;
+  position: relative;
+}
+
+.gallery-content {
+  display: flex;
+  overflow-x: auto;
   padding-bottom: 10px;
 }
 
-.gallery-container::-webkit-scrollbar {
+.gallery-content::-webkit-scrollbar {
   display: none; /* Скрыть полосу прокрутки */
 }
 
@@ -488,38 +531,34 @@ body {
   border-radius: 5px;
 }
 
-.info-section {
-  flex: 1;
-  padding-left: 30px;
+/* Стили навигационных стрелок */
+.navigation-button {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 10;
+  transition: background-color 0.3s ease;
 }
 
-/* Медиазапросы для заголовка и кнопки */
-@media (max-width: 768px) {
-  .info-section {
-    order: 1;
-    padding-left: 0;
-    margin-top: 20px;
-  }
-}
-.info-section h2 {
-  font-size: 2em;
-  margin-bottom: 10px;
-  text-align: center;
-  color: #FFC107;
+.navigation-button.left {
+  left: 10px;
 }
 
-.info-section p {
-  margin-bottom: 20px;
-  color: #c7c5c5;
-  font-size: 1em;
-  text-align: center;
+.navigation-button.right {
+  right: 10px;
 }
 
-.popular-movies, .trending-shows h2 {
-  color: #FFC107;
+.navigation-button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 /* Popular Categories style */
@@ -606,20 +645,22 @@ body {
   align-items: center;
 }
 
+.info-section h2 {
+  font-size: 2em;
+  margin-bottom: 10px;
+  text-align: center;
+  color: #FFC107;
+}
+
+.info-section p {
+  margin-bottom: 20px;
+  color: #c7c5c5;
+  font-size: 1em;
+  text-align: center;
+}
+
 /* Медиазапросы для заголовка и кнопки */
 @media (max-width: 768px) {
-  .info-section h2 {
-    font-size: 2em;
-    margin-bottom: 10px;
-    text-align: center;
-    color: #FFC107;
-  }
-  .info-section p {
-    margin-bottom: 20px;
-    color: #c7c5c5;
-    font-size: 1em;
-    text-align: center;
-  }
   .info-section {
     order: 1;
     padding-left: 0;
@@ -772,7 +813,7 @@ body {
 }
 
 .modal__cartoon-title {
-  color: #ffd80e;
+  color: #fab005;
   text-align: center;
 }
 
@@ -780,6 +821,20 @@ body {
   padding: 5px;
   margin: 10px;
   align-self: center;
+}
+
+.modal__button-close {
+  background-color: #fab005;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+.modal__button-close:hover {
+  background-color: #45a049;
 }
 
 ul li {
@@ -923,6 +978,7 @@ ul li {
 
 .modal__card {
   background-color: #ffffff;
+  color: #000000;
   max-width: 600px;
   padding: 16px;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);

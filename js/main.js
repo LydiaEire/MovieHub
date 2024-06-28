@@ -1,4 +1,5 @@
 // Home Page Section //
+
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('DOM fully loaded and parsed');
     try {
@@ -53,13 +54,32 @@ function initAutoScroll() {
     console.log('Initializing auto scroll...');
     const galleries = document.querySelectorAll('.gallery-container');
     galleries.forEach(gallery => {
+        const leftButton = gallery.querySelector('.navigation-button.left');
+        const rightButton = gallery.querySelector('.navigation-button.right');
+        console.log("ygfwyeygfiuhsghrsgoireogrigje")
+        if (leftButton && rightButton) {
+            console.log("hhh")
+            leftButton.addEventListener('click', () => {
+                console.log("popp",gallery.querySelector(".gallery-content"))
+                gallery.querySelector(".gallery-content").scrollBy({ left: -200 });
+            });
+
+            rightButton.addEventListener('click', () => {
+                console.log(";;;;;;;;")
+                gallery.querySelector(".gallery-content").scrollBy({ left: 200 });
+            });
+        }
+        
         let scrollAmount = 0;
 
         function autoScroll() {
-            if (gallery.scrollLeft !== 0 && scrollAmount >= gallery.scrollWidth - gallery.clientWidth) {
-                gallery.scrollTo({ left: 0, behavior: 'smooth' });
+            const scrollContainer = gallery.querySelector(".gallery-content");
+
+            if (scrollContainer.scrollLeft !== 0 && scrollAmount >= scrollContainer.scrollWidth - scrollContainer.clientWidth) {
+                scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
+                scrollAmount = 0;
             } else {
-                gallery.scrollBy({ left: 1, behavior: 'smooth' });
+                scrollContainer.scrollBy({ left: 1, behavior: 'smooth' });
                 scrollAmount += 1;
             }
         }
@@ -100,7 +120,6 @@ async function loadHTML(selector, url) {
         const html = await response.text();
         document.querySelector(selector).innerHTML = html;
 
-        // Reinitialize search and modal features after header is loaded
         if (selector === '#header') {
             initSearchFeature();
             initModalFeature();
@@ -132,6 +151,8 @@ async function loadPopularMovies() {
         const data = await fetchAPI(API_URL_NEW_MOVIES);
         const movieGallery = document.getElementById('movieGallery');
         movieGallery.innerHTML = data.films.map((movie) => renderTemplate(movie)).join('');
+        movieGallery.classList.add('gallery-content'); // Add this class for JS reference
+
     } catch (error) {
         console.error('Error loading popular movies:', error);
     }
@@ -143,6 +164,8 @@ async function loadTrendingShows() {
         const data = await fetchAPI(API_URL_NEW_SERIES);
         const tvShowGallery = document.getElementById('tvShowGallery');
         tvShowGallery.innerHTML = data.items.map((show) => renderTemplate(show)).join('');
+        tvShowGallery.classList.add('gallery-content'); // Add this class for JS reference
+        
     } catch (error) {
         console.error('Error loading trending shows:', error);
     }
