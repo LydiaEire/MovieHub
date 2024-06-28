@@ -1,0 +1,24 @@
+//шрифт
+$main-font: 'Montserrat', sans-serif;
+$title-weight: 600;
+
+//цвета
+$main-color: #fab005;
+$hover-color:#45a049;
+$genre-color:#97aabd;
+
+//кнопка 
+@mixin button-style{
+    background-color: $main-color;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: $hover-color;
+    }
+}

@@ -1,3 +1,5 @@
+@import 'vars';
+
 *{
     box-sizing: border-box;
 }
@@ -52,13 +54,13 @@ height: 100%;
 
 .cartoon__title {
     font-size: 16px;
-    font-weight: 600;
-    color: #fab005;
+    font-weight: $title-weight;
+    color: $main-color;
 }
 
 .cartoon__category {
 font-size: 14px;
-color: #97aabd;
+color: $genre-color;
 }
 
 .cartoon__average {
@@ -129,7 +131,7 @@ color: #97aabd;
   }
 
   .modal__cartoon-title {
-    color: #ffd80e;
+    color: $main-color;
         text-align: center;
   }
   
@@ -138,6 +140,11 @@ color: #97aabd;
     margin: 10px;
     align-self: center;
   }
+
+  .modal__button-close {
+    @include button-style;
+  }
+
   
    
   ul li {
