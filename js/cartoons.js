@@ -2,8 +2,7 @@ const apiKey = "b126b7fb-040f-494b-81eb-face8df8dd40";
 const apiUrlTopCartoons = "https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=KIDS_ANIMATION_THEME&page=1";
 const apiUrlDetails = "https://kinopoiskapiunofficial.tech/api/v2.2/films/";
 const apiSearch = "https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword=";
-const searchForm = document.querySelector('.header-form');
-const searchInput = document.querySelector('.header-search');
+
 
 
 getCartoons(apiUrlTopCartoons);
@@ -61,65 +60,87 @@ function showCartoons(data) {
 
 //Поиск по ключевому слову
 
-import { initSearchFeature } from './main.js';
+// import { initSearchFeature } from './main.js';
 initSearchFeature();
+
+function initSearchFeature() {
+  setTimeout(() => {
+      console.log('Initializing search feature...');
+      const searchButton = document.getElementById('searchButton');
+      const closeButton = document.getElementById('closeButton');
+      const searchContainer = document.querySelector('.search-container');
+      const searchInput = document.getElementById('searchInput');
+
+      if (searchButton && closeButton && searchContainer && searchInput) {
+          searchButton.addEventListener('click', () => {
+              searchContainer.classList.add('active');
+              searchInput.focus();
+              async function getVideoByKeyword(url) {
+                const resp = await fetch(url, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-API-KEY": apiKey,
+                    }
+                });
+                const respData = await resp.json();
+                console.log(respData)
+                showVideoByKeyword(respData)
+              }
+              
+              
+              function showVideoByKeyword(data) {
+                const cartoonsEl = document.querySelector('.cartoons');
+              
+                cartoonsEl.innerHTML = "";
+              
+                data.films.forEach((cartoon)=>{
+                    const cartoonEl = document.createElement("div");
+                    cartoonEl.classList.add("cartoon");
+                    cartoonEl.innerHTML = `
+                    <div class="cartoon__cover-inner">
+                        <img
+                          src="${cartoon.posterUrlPreview}"
+                          alt="${cartoon.nameRu}"
+                          class="cartoon-cover"
+                        />
+                        <div class="cartoon-cover_darkened"></div>
+                      </div>
+                      <div class="cartoon__info">
+                        <div class="cartoon__title">${cartoon.nameRu}</div>
+                        <div class="cartoon__category">${cartoon.genres.map((genre) => ` ${genre.genre}`)}</div>
+                        <div class="cartoon__average cartoon__average_${getClassByRate(cartoon.rating)}">${cartoon.rating}</div>
+                      </div>
+                    `
+                    cartoonEl.addEventListener('click', ()=> openModal(cartoon.filmId))
+                    cartoonsEl.appendChild(cartoonEl);
+                })
+              }
+              searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && searchInput.value.trim() !== '') {
+                    const searchUrl = `${apiSearch}${searchInput.value}`;
+                    getVideoByKeyword(searchUrl);
+                    searchInput.value = '';
+                }
+              });
+          });
+
+          closeButton.addEventListener('click', () => {
+              searchContainer.classList.remove('active');
+              searchInput.value = '';
+          });
+      } else {
+          console.error('Search feature elements not found.');
+      }
+  }, 500);
+  
+}
 
 
 // форма регистрации
 import { initModalFeature } from './main.js';
 initModalFeature();
 
-// async function getVideoByKeyword(url) {
-//   const resp = await fetch(url, {
-//       headers: {
-//           "Content-Type": "application/json",
-//           "X-API-KEY": apiKey,
-//       }
-//   });
-//   const respData = await resp.json();
-//   console.log(respData)
-//   showVideoByKeyword(respData)
-// }
 
-
-// function showVideoByKeyword(data) {
-//   const cartoonsEl = document.querySelector('.cartoons');
-
-//   cartoonsEl.innerHTML = "";
-
-//   data.films.forEach((cartoon)=>{
-//       const cartoonEl = document.createElement("div");
-//       cartoonEl.classList.add("cartoon");
-//       cartoonEl.innerHTML = `
-//       <div class="cartoon__cover-inner">
-//           <img
-//             src="${cartoon.posterUrlPreview}"
-//             alt="${cartoon.nameRu}"
-//             class="cartoon-cover"
-//           />
-//           <div class="cartoon-cover_darkened"></div>
-//         </div>
-//         <div class="cartoon__info">
-//           <div class="cartoon__title">${cartoon.nameRu}</div>
-//           <div class="cartoon__category">${cartoon.genres.map((genre) => ` ${genre.genre}`)}</div>
-//           <div class="cartoon__average cartoon__average_${getClassByRate(cartoon.rating)}">${cartoon.rating}</div>
-//         </div>
-//       `
-//       cartoonEl.addEventListener('click', ()=> openModal(cartoon.filmId))
-//       cartoonsEl.appendChild(cartoonEl);
-//   })
-
-// }
-
-// searchForm.addEventListener('submit', (e)=>{
-//   e.preventDefault();
-//   const searchUrl = `${apiSearch}${searchInput.value}`;
-//   if(searchInput.value) {
-    
-//     getVideoByKeyword(searchUrl);
-//     searchInput.value = "";
-//   }
-// })
 
 //модальное окно
 
