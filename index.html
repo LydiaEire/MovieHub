@@ -10,8 +10,7 @@
 <body>
     <div class="container">
         <div id="header" class="header"></div>
-        <div class="main-content" id="mainContent">
-        </div>
+        <div class="main-content" id="mainContent"></div>
 
         <!-- Popular Movies Section -->
         <section class="popular-movies">
@@ -79,59 +78,53 @@
         </div>
     </div>
     <script>
-        // Функция загрузки данных из JSON
-        async function loadMedia() {
-            const response = await fetch('media.json');
-            const media = await response.json();
-            
-            const mainContent = document.getElementById('mainContent');
-            const movieGallery = document.getElementById('movieGallery');
-            const tvShowGallery = document.getElementById('tvShowGallery');
-            const cartoonGallery = document.getElementById('cartoonGallery');
-            
-            media.forEach((item, index) => {
-                const mediaHTML = `
-                    <div class="text-section">
-                        <div class="metadata">
-                            <span>${item.country}</span>
-                            <span>|</span>
-                            <span>${item.date}</span>
-                            <span>|</span>
-                            <span>${item.rating}</span>
-                        </div>
-                        <h1>${item.title}</h1>
-                        <p>${item.description}</p>
-                        <a href="${item.trailer_link}" class="watch-btn">Трейлер</a>
-                    </div>
-                    <div class="image-section">
-                        <img src="${item.img}" alt="${item.title}">
-                    </div>
-                `;
-                
-                const mediaBlock = document.createElement('div');
-                mediaBlock.className = 'main-content';
-                mediaBlock.innerHTML = mediaHTML;
+    // Функция загрузки данных из JSON
+    async function loadMedia() {
+    const response = await fetch('media.json');
+    const media = await response.json();
 
-                if (index === 0) {
-                    mainContent.appendChild(mediaBlock);
-                }
+    const mainContent = document.getElementById('mainContent');
+    const movieGallery = document.getElementById('movieGallery');
+    const tvShowGallery = document.getElementById('tvShowGallery');
+    const cartoonGallery = document.getElementById('cartoonGallery');
 
-                const galleryItem = `
-                    <div class="media-item">
-                        <img src="${item.img}" alt="${item.title}">
-                        <h3>${item.title}</h3>
-                    </div>
-                `;
-                
-                if (item.type === 'movie') {
-                    movieGallery.innerHTML += galleryItem;
-                } else if (item.type === 'tvshow') {
-                    tvShowGallery.innerHTML += galleryItem;
-                } else if (item.type === 'cartoon') {
-                    cartoonGallery.innerHTML += galleryItem;
-                }
-            });
+    media.forEach((item, index) => {
+        const mediaHTML = `
+            <div class="text-section">
+                <div class="metadata">
+                    <span>${item.country}</span>
+                    <span>|</span>
+                    <span>${item.date}</span>
+                    <span>|</span>
+                    <span>${item.rating}</span>
+                </div>
+                <h1>${item.title}</h1>
+                <p>${item.description}</p>
+                <p>Актёры: ${item.actors}</p>
+                <p>Режиссёр: ${item.director}</p>
+                <a href="${item.trailer_link}" class="watch-btn">Трейлер</a>
+            </div>
+            <div class="image-section">
+                <img src="${item.img}" alt="${item.title}">
+            </div>
+        `;
+
+        const mediaBlock = document.createElement('div');
+        mediaBlock.className = 'main-content';
+        mediaBlock.style.opacity = '0'; 
+        mediaBlock.innerHTML = mediaHTML;
+
+        if (index === 0) {
+            mainContent.appendChild(mediaBlock);
+
+            setTimeout(() => {
+                mediaBlock.style.transition = 'opacity 1s ease, transform 1s ease';
+                mediaBlock.style.opacity = '1';
+                mediaBlock.style.transform = 'translateY(-20px)';
+            }, 150); 
         }
+    });
+}
 
         // Загрузка хедера и футера
         fetch('header.html')

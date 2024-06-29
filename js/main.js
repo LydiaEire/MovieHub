@@ -57,20 +57,15 @@ function initAutoScroll() {
     galleries.forEach(gallery => {
         const leftButton = gallery.querySelector('.navigation-button.left');
         const rightButton = gallery.querySelector('.navigation-button.right');
-        console.log("ygfwyeygfiuhsghrsgoireogrigje")
         if (leftButton && rightButton) {
-            console.log("hhh")
             leftButton.addEventListener('click', () => {
                 console.log("popp",gallery.querySelector(".gallery-content"))
                 gallery.querySelector(".gallery-content").scrollBy({ left: -200 });
             });
-
             rightButton.addEventListener('click', () => {
-                console.log(";;;;;;;;")
                 gallery.querySelector(".gallery-content").scrollBy({ left: 200 });
             });
         }
-        
         let scrollAmount = 0;
 
         function autoScroll() {

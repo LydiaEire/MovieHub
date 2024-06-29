@@ -13,13 +13,40 @@ body {
 }
 
 .main-content {
+  opacity: 0; /* Начальное состояние - невидимое */
+  animation: fadeInUp 1s ease forwards;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: #fff;
   padding: 40px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(110, 40, 40, 0.3);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.image-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-section img {
+  display: block;
+  width: 100%;
+  transition: transform 0.5s ease;
+}
+
+.image-section img:hover {
+  transform: scale(1.1);
 }
 
 .main-content .text-section {
