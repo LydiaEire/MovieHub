@@ -1,15 +1,19 @@
 // Home Page Section //
+import { auth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from './firebase.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('DOM fully loaded and parsed');
     try {
         await initPageContent();
+        initModalFeature();
         initSearchFeature();
         initAutoScroll();
         initModalFeature();
-        initBurgerMenu(); 
+        initBurgerMenu();
+        initCurrentYear();
+        initChatSupport();
     } catch (error) {
-        console.error('Error during DOMContentLoaded', error);
+        console.error('Error during DOMContentLoaded:', error);
     }
 });
 
@@ -23,7 +27,7 @@ async function initPageContent() {
         await loadPopularCartoons();
         loadPopularCategories();
     } catch (error) {
-        console.error('Failed to initialize page content', error);
+        console.error('Failed to initialize page content:', error);
     }
 }
 
@@ -84,29 +88,142 @@ function initAutoScroll() {
     });
 }
 
+// function initModalFeature() {
+//     console.log('Initializing modal feature...');
+//     const registerButton = document.getElementById('registerButton');
+//     const registerModal = document.getElementById('registerModal');
+//     const closeModal = document.getElementById('closeModal');
+
+//     if (registerButton && registerModal && closeModal) {
+//         registerButton.addEventListener('click', () => {
+//             registerModal.style.display = 'block';
+//         });
+
+//         closeModal.addEventListener('click', () => {
+//             registerModal.style.display = 'none';
+//         });
+
+//         window.addEventListener('click', (event) => {
+//             if (event.target === registerModal) {
+//                 registerModal.style.display = 'none';
+//             }
+//         });
+//     } else {
+//         console.error('Modal feature elements not found.');
+//     }
+// }
+
 function initModalFeature() {
     console.log('Initializing modal feature...');
+
     const registerButton = document.getElementById('registerButton');
     const registerModal = document.getElementById('registerModal');
     const closeModal = document.getElementById('closeModal');
+    const signupButton = document.getElementById('signupButton');
+    const loginButton = document.getElementById('loginButton');
+
+    const signupNameInput = document.getElementById('signupName');
+    const signupEmailInput = document.getElementById('signupEmail');
+    const signupPasswordInput = document.getElementById('signupPassword');
+
+    const loginEmailInput = document.getElementById('loginEmail');
+    const loginPasswordInput = document.getElementById('loginPassword');
 
     if (registerButton && registerModal && closeModal) {
         registerButton.addEventListener('click', () => {
+            console.log('Register button clicked');
             registerModal.style.display = 'block';
         });
 
         closeModal.addEventListener('click', () => {
+            console.log('Close modal button clicked');
             registerModal.style.display = 'none';
         });
 
         window.addEventListener('click', (event) => {
             if (event.target === registerModal) {
+                console.log('Clicked outside the modal, closing modal');
                 registerModal.style.display = 'none';
+            }
+        });
+
+        // Регистрация нового пользователя
+        signupButton.addEventListener('click', async (e) => {
+            e.preventDefault();
+            console.log('Signup button clicked');
+
+            const name = signupNameInput.value;
+            const email = signupEmailInput.value;
+            const password = signupPasswordInput.value;
+
+            console.log(`Signup form values: Name - ${name}, Email - ${email}, Password - [HIDDEN]`);
+
+            if (!name || !email || !password) {
+                console.warn('Please fill out all fields.');
+                alert('Please fill out all fields.');
+                return;
+            }
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                console.log('User registered:', userCredential.user);
+                await updateProfile(userCredential.user, { displayName: name, photoURL: 'https://img.icons8.com/?size=100&id=cVvlNnxJxomp&format=png&color=000000' });
+                console.log('User profile updated with display name and photo URL');
+                registerModal.style.display = 'none';
+                showUserProfile(userCredential.user);
+            } catch (error) {
+                console.error('Error during registration:', error);
+                alert(`Error during registration: ${error.message}`);
+            }
+        });
+
+        // Вход существующего пользователя
+        loginButton.addEventListener('click', async (e) => {
+            e.preventDefault();
+            console.log('Login button clicked');
+
+            const email = loginEmailInput.value;
+            const password = loginPasswordInput.value;
+
+            console.log(`Login form values: Email - ${email}, Password - [HIDDEN]`);
+
+            if (!email || !password) {
+                console.warn('Please fill out all fields.');
+                alert('Please fill out all fields.');
+                return;
+            }
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                console.log('User logged in:', userCredential.user);
+                registerModal.style.display = 'none';
+                showUserProfile(userCredential.user);
+            } catch (error) {
+                console.error('Error during login:', error);
+                alert(`Error during login: ${error.message}`);
             }
         });
     } else {
         console.error('Modal feature elements not found.');
     }
+}
+
+// Функция для отображения профиля пользователя
+function showUserProfile(user) {
+    console.log('Showing user profile...');
+    const userProfile = document.getElementById('userProfile');
+    const registerButton = document.getElementById('registerButton');
+    const userNameElement = document.getElementById('userName');
+    const userAvatarElement = document.getElementById('userAvatar');
+
+    console.log(`User info: DisplayName - ${user.displayName}, PhotoURL - ${user.photoURL}`);
+
+    userNameElement.textContent = user.displayName;
+    userAvatarElement.src = user.photoURL || 'https://img.icons8.com/?size=100&id=cVvlNnxJxomp&format=png&color=000000';
+    
+    registerButton.style.display = 'none';
+    userProfile.style.display = 'flex';
+    console.log('User profile displayed');
 }
 
 async function loadHTML(selector, url) {
@@ -140,6 +257,31 @@ function initBurgerMenu() {
     }
 }
 
+function initChatSupport() {
+    const supportLink = document.getElementById('supportLink');
+    const chatContainer = document.getElementById('chatContainer');
+    const closeChat = document.getElementById('closeChat');
+
+    if (supportLink && chatContainer && closeChat) {
+        supportLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            chatContainer.style.display = 'flex';
+        });
+
+        closeChat.addEventListener('click', () => {
+            chatContainer.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === chatContainer) {
+                chatContainer.style.display = 'none';
+            }
+        });
+    } else {
+        console.error('Chat support elements not found.');
+    }
+}
+
 async function fetchAPI(url) {
     console.log(`Fetching data from ${url}`);
     const response = await fetch(url, {
@@ -160,7 +302,7 @@ async function loadPopularMovies() {
     try {
         console.log('Loading popular movies...');
         const data = await fetchAPI(API_URL_NEW_MOVIES);
-        const filteredMovies = filterMovies(data.films); 
+        const filteredMovies = filterMovies(data.films);
         const movieGallery = document.getElementById('movieGallery');
         movieGallery.innerHTML = filteredMovies.map((movie) => renderTemplate(movie)).join('');
         movieGallery.classList.add('gallery-content');
@@ -179,14 +321,21 @@ async function loadTrendingShows() {
     try {
         console.log('Loading trending shows...');
         const data = await fetchAPI(API_URL_NEW_SERIES);
+        const filteredShows = filterShows(data.items);
         const tvShowGallery = document.getElementById('tvShowGallery');
-        tvShowGallery.innerHTML = data.items.map((show) => renderTemplate(show)).join('');
-        tvShowGallery.classList.add('gallery-content'); 
-        
+        tvShowGallery.innerHTML = filteredShows.map((show) => renderTemplate(show)).join('');
+        tvShowGallery.classList.add('gallery-content');
     } catch (error) {
         console.error('Error loading trending shows:', error);
     }
 }
+
+function filterShows(shows) {
+    return shows.filter(show => {
+        return !show.genres.some(genre => genre.genre.toLowerCase().includes('документальный') || genre.genre.toLowerCase().includes('документальные'));
+    });
+}
+
 
 async function loadPopularCartoons() {
     try {
@@ -202,11 +351,11 @@ async function loadPopularCartoons() {
 function loadPopularCategories() {
     const categories = [
         {
-            title: "TV Shows",
+            title: "Сериалы",
             img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpmfenNFcMhjKowTibjNgy5KqPmRd5rXmBsQ&s"
         },
         {
-            title: "Cartoons",
+            title: "Мультфильмы",
             img: "https://i0.wp.com/www.toonsmag.com/wp-content/uploads/2023/09/IMG_6086.jpeg"
         },
         {
@@ -214,7 +363,7 @@ function loadPopularCategories() {
             img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg3rYHh9ONCog-Sf5Dx6crT7UBuG-I7P0RdA&s"
         },
         {
-            title: "Movies",
+            title: "Фильмы",
             img: "https://www.vanas.ca/images/blog/vfx-visual-effects-vanas.jpg"
         },
     ];
@@ -254,6 +403,16 @@ function renderGallery(containerId, cardClass, items, isCategory = false) {
     }
 }
 
+function initCurrentYear() {
+    const currentYear = new Date().getFullYear();
+    const yearElement = document.getElementById('currentYear');
+    if (yearElement) {
+        yearElement.textContent = currentYear;
+    } else {
+        console.error('Year element not found.');
+    }
+}
 export { initSearchFeature, initModalFeature };
+
 // The end of Home Page Section //
 

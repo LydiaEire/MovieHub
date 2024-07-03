@@ -17,6 +17,7 @@ ul {
                 text-decoration: none;
                 color: #fab005;
                 font-weight: 600;
+                padding-right: 10px;
             }
         }
     }
@@ -27,13 +28,13 @@ ul {
     color: white;
     padding: 10px 20px;
     font-size: 16px;
-    border: none;
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
     font-weight: bold;
     text-align: center;
     margin-top: auto;
+    margin-bottom: auto;
 
     &:hover {
         background-color:#fab005;
@@ -173,7 +174,6 @@ ul {
 
 #searchInput {
     display: none;
-    border: 1px solid #ccc;
     border-radius: 5px;
     padding: 5px 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -229,6 +229,23 @@ ul {
     transition: background-color 0.3s ease;
     text-align: center;
     margin-left: 50px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.user-name {
+    color: white; 
+    font-weight: bold;
 }
 .burger-menu {
     display: none;
