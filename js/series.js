@@ -1,12 +1,3 @@
-const API_KEY = 'c99a5bc9-624b-419a-9b53-f34d728d4d85';
-const API_URL_POPULAR =
-  'https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=POPULAR_SERIES&page=1';
-const API_URL_SEARCH =
-  'https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?type=TV_SERIES&keyword=';
-const API_URL_DETAILS = 'https://kinopoiskapiunofficial.tech/api/v2.2/films/';
-
-getSeries(API_URL_POPULAR);
-
 //Поиск по ключевому слову
 import { initSearchFeature } from './main.js';
 initSearchFeature();
@@ -15,15 +6,53 @@ initSearchFeature();
 import { initModalFeature } from './main.js';
 initModalFeature();
 
+const loaderOverlay = document.querySelector('.loader-overlay');
+const errorMessageEl = document.querySelector('.error-message');
+const form = document.querySelector('form');
+const search = document.querySelector('.header__search');
+const modalEl = document.querySelector('.modal');
+const API_KEY = 'c99a5bc9-624b-419a-9b53-f34d728d4d85';
+const API_URL_POPULAR =
+  'https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=POPULAR_SERIES&page=1';
+const API_URL_SEARCH =
+  'https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?type=TV_SERIES&keyword=';
+const API_URL_DETAILS = 'https://kinopoiskapiunofficial.tech/api/v2.2/films/';
+//Лодер
+function showLoader() {
+  loaderOverlay.style.display = 'flex';
+  setTimeout(() => {
+    document.body.classList.add('loading');
+  }, 2000);
+}
+function hideLoader() {
+  loaderOverlay.style.display = 'none';
+  document.body.classList.remove('loading');
+}
+//Ошибка
+function showError(message) {
+  errorMessageEl.textContent = message;
+  errorMessageEl.style.display = 'block';
+  setTimeout(() => {
+    errorMessageEl.style.display = 'none';
+  }, 5000);
+}
+getSeries(API_URL_POPULAR);
 async function getSeries(url, type = 'items') {
-  const resp = await fetch(url, {
-    headers: {
-      'Content-Type': 'application/json',
-      'X-API-KEY': API_KEY,
-    },
-  });
-  const respData = await resp.json();
-  showSeries(respData, type);
+  showLoader();
+  try {
+    const resp = await fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-KEY': API_KEY,
+      },
+    });
+    const respData = await resp.json();
+    showSeries(respData, type);
+  } catch (error) {
+    showError(`Упс.. Возникла ошибка: ${error.message}`);
+  } finally {
+    hideLoader();
+  }
 }
 
 function getClassByYear(year) {
@@ -46,12 +75,13 @@ function getClassByYear(year) {
 }
 
 function showSeries(data, type) {
-  const seriesEl = document.querySelector('.movies');
-  document.querySelector('.movies').innerHTML = '';
-  data[type].forEach((series) => {
-    const seriesElement = document.createElement('div');
-    seriesElement.classList.add('movie');
-    seriesElement.innerHTML = `
+  try {
+    const seriesEl = document.querySelector('.movies');
+    document.querySelector('.movies').innerHTML = '';
+    data[type].forEach((series) => {
+      const seriesElement = document.createElement('div');
+      seriesElement.classList.add('movie');
+      seriesElement.innerHTML = `
       <div class="movie__cover_inner">
         <img
           src="${series.posterUrlPreview}"
@@ -66,30 +96,29 @@ function showSeries(data, type) {
           .map((genre) => ` ${genre.genre}`)
           .join(', ')}</div>
           ${
-            series.year &&
-            `
+            series.year
+              ? `
               <div class="movie__year movie__year_${getClassByYear(
                 series.year
               )}">
                 ${series.year}
               </div>
             `
+              : ''
           }
       </div>
     `;
-    const seriesId = series.kinopoiskId || series.filmId;
-    seriesElement.addEventListener('click', () => openModal(seriesId));
-
-    seriesEl.appendChild(seriesElement);
-  });
+      const seriesId = series.kinopoiskId || series.filmId;
+      seriesElement.addEventListener('click', () => openModal(seriesId));
+      seriesEl.appendChild(seriesElement);
+    });
+  } catch (error) {
+    showError(`Упс.. Возникла ошибка: ${error.message}`);
+  }
 }
-
-const form = document.querySelector('form');
-const search = document.querySelector('.header__search');
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
-
   const apiSearchUrl = `${API_URL_SEARCH}${search.value}`;
   if (search.value) {
     getSeries(apiSearchUrl, 'films');
@@ -98,7 +127,6 @@ form.addEventListener('submit', (e) => {
 });
 
 //Modal
-const modalEl = document.querySelector('.modal');
 async function openModal(id) {
   modalEl.innerHTML = '';
   const resp = await fetch(API_URL_DETAILS + id, {
@@ -115,15 +143,15 @@ async function openModal(id) {
       <img class="modal__movie-backdrop" src="${respData.posterUrl}" alt="">
       <h2>
         <span class="modal__movie-title">${respData.nameRu}</span>
-        ${
-          respData.year
-            ? `<span class="modal__movie-release-year">- ${respData.year} год</span>`
-            : ''
-        }
-    </h2>
-      </h2>
+        </h2>
+       
+    
       <ul class="modal__movie-info">
-        <div class="loader"></div>
+         ${
+           respData.year
+             ? `<li class="modal__movie-release-year">Год - ${respData.year}</li>`
+             : ''
+         }
         <li class="modal__movie-genre">Жанр - ${respData.genres.map(
           (el) => `<span>${el.genre}</span>`
         )}</li>
@@ -135,9 +163,11 @@ async function openModal(id) {
         <li >Сайт: <a class="modal__movie-site" href="${respData.webUrl}">${
     respData.webUrl
   }</a></li>
-        <li class="modal__movie-overview">Описание - ${
+        ${
           respData.description
-        }</li>
+            ? `<li class="modal__movie-overview">Описание - ${respData.description}</li>`
+            : ''
+        }
       </ul>
       <button type="button" class="modal__button-close">Закрыть</button>
     </div>
