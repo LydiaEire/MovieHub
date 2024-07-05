@@ -194,12 +194,6 @@ ul li {
     border-top-color: #3498db;
   }
 }
-body.loading {
-  overflow: hidden;
-}
-body.loading .loader-overlay {
-  display: flex;
-}
 
 /*Сообщение об ошибке*/
 .error-message {

@@ -22,11 +22,11 @@ function showLoader() {
   loaderOverlay.style.display = 'flex';
   setTimeout(() => {
     document.body.classList.add('loading');
-  }, 1000);
+  }, 2000);
 }
 function hideLoader() {
-  document.body.classList.remove('loading');
   loaderOverlay.style.display = 'none';
+  document.body.classList.remove('loading');
 }
 //Ошибка
 function showError(message) {
