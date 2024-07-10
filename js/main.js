@@ -31,7 +31,7 @@ async function initPageContent() {
     }
 }
 
-function initSearchFeature() {
+function initSearchFeature(funcTest = undefined) {
     setTimeout(() => {
         console.log('Initializing search feature...');
         const searchButton = document.getElementById('searchButton');
@@ -43,6 +43,7 @@ function initSearchFeature() {
             searchButton.addEventListener('click', () => {
                 searchContainer.classList.add('active');
                 searchInput.focus();
+                if(funcTest) funcTest();
             });
 
             closeButton.addEventListener('click', () => {
