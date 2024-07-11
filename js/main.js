@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         initModalFeature();
         initSearchFeature();
         initAutoScroll();
-        initModalFeature();
+        initContactModalFeature(); // Added for contact form modal
         initBurgerMenu();
         initCurrentYear();
         initChatSupport();
@@ -89,34 +89,8 @@ function initAutoScroll() {
     });
 }
 
-// function initModalFeature() {
-//     console.log('Initializing modal feature...');
-//     const registerButton = document.getElementById('registerButton');
-//     const registerModal = document.getElementById('registerModal');
-//     const closeModal = document.getElementById('closeModal');
-
-//     if (registerButton && registerModal && closeModal) {
-//         registerButton.addEventListener('click', () => {
-//             registerModal.style.display = 'block';
-//         });
-
-//         closeModal.addEventListener('click', () => {
-//             registerModal.style.display = 'none';
-//         });
-
-//         window.addEventListener('click', (event) => {
-//             if (event.target === registerModal) {
-//                 registerModal.style.display = 'none';
-//             }
-//         });
-//     } else {
-//         console.error('Modal feature elements not found.');
-//     }
-// }
-
 function initModalFeature() {
     console.log('Initializing modal feature...');
-
     const registerButton = document.getElementById('registerButton');
     const registerModal = document.getElementById('registerModal');
     const closeModal = document.getElementById('closeModal');
@@ -206,6 +180,63 @@ function initModalFeature() {
         });
     } else {
         console.error('Modal feature elements not found.');
+    }
+}
+
+// Initialize Contact Modal
+function initContactModalFeature() {
+    console.log('Initializing contact modal feature...');
+
+    const contactButton = document.getElementById('contactButton');
+    const contactModal = document.getElementById('contactModal');
+    const closeContactModal = document.getElementById('closeContactModal');
+    const sendContactButton = document.getElementById('sendContactButton');
+
+    const contactNameInput = document.getElementById('contactName');
+    const contactEmailInput = document.getElementById('contactEmail');
+    const contactMessageInput = document.getElementById('contactMessage');
+
+    if (contactButton && contactModal && closeContactModal && sendContactButton) {
+        contactButton.addEventListener('click', () => {
+            console.log('Contact button clicked');
+            contactModal.style.display = 'block';
+        });
+
+        closeContactModal.addEventListener('click', () => {
+            console.log('Close contact modal button clicked');
+            contactModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === contactModal) {
+                console.log('Clicked outside the contact modal, closing modal');
+                contactModal.style.display = 'none';
+            }
+        });
+
+        // Sending message from contact form
+        sendContactButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('Send contact button clicked');
+
+            const name = contactNameInput.value;
+            const email = contactEmailInput.value;
+            const message = contactMessageInput.value;
+
+            console.log(`Contact form values: Name - ${name}, Email - ${email}, Message - ${message}`);
+
+            if (!name || !email || !message) {
+                console.warn('Please fill out all fields.');
+                alert('Please fill out all fields.');
+                return;
+            }
+
+            // Logic for sending message to server or email
+            alert(`Thank you, ${name}. Your message has been sent.`);
+            contactModal.style.display = 'none';
+        });
+    } else {
+        console.error('Contact modal feature elements not found.');
     }
 }
 
@@ -353,15 +384,15 @@ function loadPopularCategories() {
     const categories = [
         {
             title: "Сериалы",
-            img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpmfenNFcMhjKowTibjNgy5KqPmRd5rXmBsQ&s"
+            img: "https://avatars.dzeninfra.ru/get-zen_doc/3768331/pub_5fe5ce66de81402ba819b047_5fe5dd6adba1eb4af8a05bee/scale_1200"
         },
         {
             title: "Мультфильмы",
-            img: "https://i0.wp.com/www.toonsmag.com/wp-content/uploads/2023/09/IMG_6086.jpeg"
+            img: "https://tlum.ru/uploads/19599c32a8f6ce98de6efc2140718e1ee1c0d6a3c0534db6345a2a1163513ea5.jpeg"
         },
         {
-            title: "Marvel",
-            img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg3rYHh9ONCog-Sf5Dx6crT7UBuG-I7P0RdA&s"
+            title: "Другое",
+            img: "https://static.tildacdn.com/tild3338-3464-4932-a365-376264326331/Denk_ich_an_Deutschl.jpg"
         },
         {
             title: "Фильмы",
