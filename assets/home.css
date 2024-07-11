@@ -13,7 +13,7 @@ body {
 }
 
 .main-content {
-  opacity: 0; /* Начальное состояние - невидимое */
+  opacity: 0;
   animation: fadeInUp 1s ease forwards;
   display: flex;
   align-items: center;
@@ -284,7 +284,7 @@ body {
 .categories {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 10px;
+  gap: 20px;
   flex: 2;
 }
 
@@ -311,6 +311,7 @@ body {
 .info-section {
   flex: 1;
   padding-left: 30px;
+  padding-top: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
