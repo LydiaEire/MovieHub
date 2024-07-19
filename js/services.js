@@ -8,4 +8,4 @@ export async function getVideoByKeyword(url, func, key) {
     const respData = await resp.json();
     console.log(respData)
     func(respData)
-  }
+}
