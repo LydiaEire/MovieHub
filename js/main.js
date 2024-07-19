@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         initModalFeature();
         initSearchFeature();
         initAutoScroll();
-        initContactModalFeature(); // Added for contact form modal
+        initContactModalFeature();
         initBurgerMenu();
         initCurrentYear();
         initChatSupport();
@@ -64,7 +64,6 @@ function initAutoScroll() {
         const rightButton = gallery.querySelector('.navigation-button.right');
         if (leftButton && rightButton) {
             leftButton.addEventListener('click', () => {
-                console.log("popp",gallery.querySelector(".gallery-content"))
                 gallery.querySelector(".gallery-content").scrollBy({ left: -200 });
             });
             rightButton.addEventListener('click', () => {
@@ -183,57 +182,27 @@ function initModalFeature() {
     }
 }
 
-// Initialize Contact Modal
+// Форма обратной связи
 function initContactModalFeature() {
     console.log('Initializing contact modal feature...');
-
-    const contactButton = document.getElementById('contactButton');
+    const contactLink = document.getElementById('contactLink');
     const contactModal = document.getElementById('contactModal');
-    const closeContactModal = document.getElementById('closeContactModal');
-    const sendContactButton = document.getElementById('sendContactButton');
+    const closeModal = document.querySelector('.close');
 
-    const contactNameInput = document.getElementById('contactName');
-    const contactEmailInput = document.getElementById('contactEmail');
-    const contactMessageInput = document.getElementById('contactMessage');
-
-    if (contactButton && contactModal && closeContactModal && sendContactButton) {
-        contactButton.addEventListener('click', () => {
-            console.log('Contact button clicked');
+    if (contactLink && contactModal && closeModal) {
+        contactLink.addEventListener('click', (event) => {
+            event.preventDefault();
             contactModal.style.display = 'block';
         });
 
-        closeContactModal.addEventListener('click', () => {
-            console.log('Close contact modal button clicked');
+        closeModal.addEventListener('click', () => {
             contactModal.style.display = 'none';
         });
 
         window.addEventListener('click', (event) => {
             if (event.target === contactModal) {
-                console.log('Clicked outside the contact modal, closing modal');
                 contactModal.style.display = 'none';
             }
-        });
-
-        // Sending message from contact form
-        sendContactButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            console.log('Send contact button clicked');
-
-            const name = contactNameInput.value;
-            const email = contactEmailInput.value;
-            const message = contactMessageInput.value;
-
-            console.log(`Contact form values: Name - ${name}, Email - ${email}, Message - ${message}`);
-
-            if (!name || !email || !message) {
-                console.warn('Please fill out all fields.');
-                alert('Please fill out all fields.');
-                return;
-            }
-
-            // Logic for sending message to server or email
-            alert(`Thank you, ${name}. Your message has been sent.`);
-            contactModal.style.display = 'none';
         });
     } else {
         console.error('Contact modal feature elements not found.');
@@ -364,17 +333,17 @@ async function loadTrendingShows() {
 
 function filterShows(shows) {
     return shows.filter(show => {
-        return !show.genres.some(genre => genre.genre.toLowerCase().includes('документальный') || genre.genre.toLowerCase().includes('документальные'));
+        return !show.genres.some(genre => genre.genre.toLowerCase().includes('документальный') || genre.genre.toLowerCase().includes('мультфильм'));
     });
 }
-
 
 async function loadPopularCartoons() {
     try {
         console.log('Loading popular cartoons...');
         const data = await fetchAPI(API_URL_NEW_CARTOONS);
         const cartoonGallery = document.getElementById('cartoonGallery');
-        cartoonGallery.innerHTML = data.films.map((cartoon) => renderTemplate(cartoon)).join('');
+        cartoonGallery.innerHTML = data.items.map((cartoon) => renderTemplate(cartoon)).join('');
+        cartoonGallery.classList.add('gallery-content');
     } catch (error) {
         console.error('Error loading popular cartoons:', error);
     }
@@ -405,7 +374,7 @@ function loadPopularCategories() {
 const API_KEY = '827c7dbe-9cd5-489c-9eb6-31db220697f9';
 const API_URL_NEW_MOVIES = 'https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_100_POPULAR_FILMS&page=1';
 const API_URL_NEW_SERIES = 'https://kinopoiskapiunofficial.tech/api/v2.2/films?yearFrom=2023&yearTo=2024&order=RATING&type=TV_SERIES&page=1';
-const API_URL_NEW_CARTOONS = 'https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_100_POPULAR_CARTOONS&page=1';
+const API_URL_NEW_CARTOONS = 'https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=KIDS_ANIMATION_THEME&page=1';
 
 function renderTemplate(data) {
     return `
@@ -418,19 +387,27 @@ function renderTemplate(data) {
                 <div class="media-item__title">${data.nameRu}</div>
                 <div class="media-item__category">${data.genres.map(genre => genre.genre).join(', ')}</div>
                 <div class="media-item__year">${data.year}</div>
+                ${data.trailer_link ? `<a href="${data.trailer_link}" target="_blank" class="media-item__trailer-link">Смотреть трейлер</a>` : ''}
             </div>
         </div>
     `;
 }
 
 function renderGallery(containerId, cardClass, items, isCategory = false) {
+    const categoryUrls = {
+        "Сериалы": "series.html",
+        "Мультфильмы": "animations.html",
+        "Документальное": "documentaries.html",
+        "Фильмы": "movies.html"
+    };
+
     const container = document.getElementById(containerId) || document.querySelector(`.${containerId}`);
     if (container) {
         container.innerHTML = items.map(item => `
-            <div class="${cardClass}" ${isCategory ? `data-title="${item.title}" style="background-image: url('${item.img}')"` : ''}>
+            <a href="/${categoryUrls[item.title]}" class="${cardClass}" ${isCategory ? `data-title="${item.title}" style="background-image: url('${item.img}')"` : ''}>
                 ${!isCategory ? `<img src="${item.img}" alt="${item.title}">` : ''}
                 <div class="${cardClass}-info">${item.title}</div>
-            </div>
+            </a>
         `).join('');
     }
 }
@@ -444,7 +421,9 @@ function initCurrentYear() {
         console.error('Year element not found.');
     }
 }
+
 export { initSearchFeature, initModalFeature };
+
 
 // The end of Home Page Section //
 

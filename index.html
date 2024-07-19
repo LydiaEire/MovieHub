@@ -22,86 +22,90 @@
             </div>
         </section>
         
-        <!-- Trending TV shows Section -->
+        <!-- Trending TV Shows Section -->
         <section class="trending-shows">
-            <h2>Новинки сериалов и анимации</h2>
+            <h2>Новинки сериалов</h2>
             <div class="gallery-container">
                 <button class="navigation-button left">&#9664;</button>
                 <div id="tvShowGallery" class="gallery-content trending-shows"></div>
                 <button class="navigation-button right">&#9654;</button>
             </div>
-            
         </section>
 
+        <!-- Popular Cartoons Section -->
+        <section class="popular-cartoons">
+            <h2>Шедевры анимации</h2>
+            <div class="gallery-container">
+                <button class="navigation-button left">&#9664;</button>
+                <div id="cartoonGallery" class="gallery-content popular-cartoons"></div>
+                <button class="navigation-button right">&#9654;</button>
+            </div>
+        </section>
 
         <!-- Popular Categories Section -->
         <div class="popular-categories">
             <div class="categories">
-                <div class="category-card" data-title="Сериалы" style="background-image: url('https://.../tv-shows.jpg');"></div>
-                <div class="category-card" data-title="Мультфильмы" style="background-image: url('https://.../cartoons.jpg');"></div>
-                <div class="category-card" data-title="Marvel" style="background-image: url('https://.../marvel.jpg');"></div>
-                <div class="category-card" data-title="Фильмы" style="background-image: url('https://.../movies.jpg');"></div>
+                <a href="/series.html" class="category-card" data-title="Сериалы" style="background-image: url('https://....jpg');"></a>
+                <a href="/cartoons.html" class="category-card" data-title="Мультфильмы" style="background-image: url('https://....jpg');"></a>
+                <a href="/documentaries.html" class="category-card" data-title="Документальное" style="background-image: url('https://....jpg');"></a>
+                <a href="/movies.html" class="category-card" data-title="Фильмы" style="background-image: url('https://....jpg');"></a>
             </div>
             <div class="info-section">
                 <h2>Популярные категории</h2>
                 <p>Весь контент в MovieHub разделен на несколько категорий, что позволяет легко перемещаться между ними и находить то, что вам нравится</p>
-                <a href="#" class="view-all-btn">Посмотреть</a>
             </div>
         </div>
 
         <div id="footer" class="footer"></div>
-        
-
-        
     </div>
     <script>
-    // Функция загрузки данных из JSON
-    async function loadMedia() {
-    const response = await fetch('media.json');
-    const media = await response.json();
+        // Функция загрузки данных из JSON
+        async function loadMedia() {
+            const response = await fetch('media.json');
+            const media = await response.json();
 
-    const mainContent = document.getElementById('mainContent');
-    const movieGallery = document.getElementById('movieGallery');
-    const tvShowGallery = document.getElementById('tvShowGallery');
-    const cartoonGallery = document.getElementById('cartoonGallery');
+            const mainContent = document.getElementById('mainContent');
+            const movieGallery = document.getElementById('movieGallery');
+            const tvShowGallery = document.getElementById('tvShowGallery');
+            const cartoonGallery = document.getElementById('cartoonGallery'); 
 
-    media.forEach((item, index) => {
-        const mediaHTML = `
-            <div class="text-section">
-                <div class="metadata">
-                    <span>${item.country}</span>
-                    <span>|</span>
-                    <span>${item.date}</span>
-                    <span>|</span>
-                    <span>${item.rating}</span>
-                </div>
-                <h1>${item.title}</h1>
-                <p>${item.description}</p>
-                <p>Актёры: ${item.actors}</p>
-                <p>Режиссёр: ${item.director}</p>
-                <a href="${item.trailer_link}" class="watch-btn">Трейлер</a>
-            </div>
-            <div class="image-section">
-                <img src="${item.img}" alt="${item.title}">
-            </div>
-        `;
+            media.forEach((item, index) => {
+                const mediaHTML = `
+                    <div class="text-section">
+                        <div class="metadata">
+                            <span>${item.country}</span>
+                            <span>|</span>
+                            <span>${item.date}</span>
+                            <span>|</span>
+                            <span>${item.rating}</span>
+                        </div>
+                        <h1>${item.title}</h1>
+                        <p>${item.description}</p>
+                        <p>Актёры: ${item.actors}</p>
+                        <p>Режиссёр: ${item.director}</p>
+                        <a href="${item.trailer_link}" class="watch-btn">Трейлер</a>
+                    </div>
+                    <div class="image-section">
+                        <img src="${item.img}" alt="${item.title}">
+                    </div>
+                `;
 
-        const mediaBlock = document.createElement('div');
-        mediaBlock.className = 'main-content';
-        mediaBlock.style.opacity = '0'; 
-        mediaBlock.innerHTML = mediaHTML;
+                const mediaBlock = document.createElement('div');
+                mediaBlock.className = 'main-content';
+                mediaBlock.style.opacity = '0'; 
+                mediaBlock.innerHTML = mediaHTML;
 
-        if (index === 0) {
-            mainContent.appendChild(mediaBlock);
+                if (index === 0) {
+                    mainContent.appendChild(mediaBlock);
 
-            setTimeout(() => {
-                mediaBlock.style.transition = 'opacity 1s ease, transform 1s ease';
-                mediaBlock.style.opacity = '1';
-                mediaBlock.style.transform = 'translateY(-20px)';
-            }, 150); 
+                    setTimeout(() => {
+                        mediaBlock.style.transition = 'opacity 1s ease, transform 1s ease';
+                        mediaBlock.style.opacity = '1';
+                        mediaBlock.style.transform = 'translateY(-20px)';
+                    }, 150); 
+                }
+            });
         }
-    });
-}
 
         // Загрузка хедера и футера
         fetch('header.html')
@@ -118,5 +122,6 @@
     <script type="module" src="js/main.js"></script>
 </body>
 </html>
+
 
 

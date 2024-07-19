@@ -96,11 +96,11 @@ body {
 }
 
 /* Popular Movies and Trending Shows styles */
-.popular-movies, .trending-shows {
+.popular-movies, .trending-shows, .popular-cartoons {
     padding: 20px;
 }
 
-.popular-movies h2, .trending-shows h2 {
+.popular-movies h2, .trending-shows h2, .popular-cartoons h2  {
     color: #FFC107;
 }
 
@@ -293,6 +293,7 @@ body {
 }
 
 .category-card {
+    text-decoration: none;
     background-size: cover;
     background-position: center;
     border-radius: 10px;
