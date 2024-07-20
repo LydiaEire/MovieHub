@@ -2,7 +2,6 @@
 * {
   box-sizing: border-box;
 }
-
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -17,7 +16,7 @@
 .header__logo {
   font-size: 28px;
   text-decoration: none;
-  color: $main-color;
+  color: #ffe4c4;
 }
 .header__search {
   padding: 8px;
@@ -82,7 +81,6 @@
   align-items: center;
   justify-content: center;
   /* background-color: #1a191f; */
-
   color: white;
   font-size: 14px;
   font-weight: 600;
@@ -99,7 +97,6 @@
   /*  border: 1px solid red; */
   background-color: #f35053;
 }
-
 .modal {
   display: none;
   position: fixed;
@@ -136,15 +133,12 @@
 .modal__button-close {
   @include button-style;
 }
-
 .modal__movie-site {
   color: #ffd80e;
 }
-
 ul li {
   padding: 5px;
 }
-
 .stop-scrolling {
   height: 100%;
   overflow: hidden;
@@ -154,7 +148,6 @@ ul li {
   justify-content: center;
   align-items: center;
 }
-/* Применение лодера*/
 .loader-overlay {
   position: fixed;
   top: 0;
@@ -194,8 +187,6 @@ ul li {
     border-top-color: #3498db;
   }
 }
-
-/*Сообщение об ошибке*/
 .error-message {
   @include error-message;
 }

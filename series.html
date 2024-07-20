@@ -19,15 +19,9 @@
       <div class="header_container">
         <div class="header__content">
           <a href="series.html" class="header__logo">Сериалы</a>
-          <form>
-            <input
-              type="text"
-              class="header__search"
-              placeholder="Поиск по сериалам"
-            />
-          </form>
         </div>
       </div>
+      <div class="error-message"></div>
       <div>
         <div class="movies"></div>
       </div>
@@ -66,14 +60,11 @@
       <div class="loader-overlay">
         <div class="loader"></div>
       </div>
-      <div class="error-message"></div>
     </div>
     <script>
-      // Загрузка хедера
       fetch('header.html')
         .then((response) => response.text())
         .then((data) => (document.getElementById('header').innerHTML = data));
-      // Загрузка футера
       fetch('footer.html')
         .then((response) => response.text())
         .then((data) => (document.getElementById('footer').innerHTML = data));

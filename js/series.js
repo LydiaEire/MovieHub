@@ -1,15 +1,9 @@
-//Поиск по ключевому слову
 import { initSearchFeature } from './main.js';
-initSearchFeature();
-
-// форма регистрации
 import { initModalFeature } from './main.js';
 initModalFeature();
-
 const loaderOverlay = document.querySelector('.loader-overlay');
 const errorMessageEl = document.querySelector('.error-message');
-const form = document.querySelector('form');
-const search = document.querySelector('.header__search');
+const seriesEl = document.querySelector('.movies');
 const modalEl = document.querySelector('.modal');
 const API_KEY = 'c99a5bc9-624b-419a-9b53-f34d728d4d85';
 const API_URL_POPULAR =
@@ -17,7 +11,6 @@ const API_URL_POPULAR =
 const API_URL_SEARCH =
   'https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?type=TV_SERIES&keyword=';
 const API_URL_DETAILS = 'https://kinopoiskapiunofficial.tech/api/v2.2/films/';
-//Лодер
 function showLoader() {
   loaderOverlay.style.display = 'flex';
   setTimeout(() => {
@@ -28,8 +21,8 @@ function hideLoader() {
   loaderOverlay.style.display = 'none';
   document.body.classList.remove('loading');
 }
-//Ошибка
 function showError(message) {
+  console.log('showError called with message:', message);
   errorMessageEl.textContent = message;
   errorMessageEl.style.display = 'block';
   setTimeout(() => {
@@ -54,7 +47,6 @@ async function getSeries(url, type = 'items') {
     hideLoader();
   }
 }
-
 function getClassByYear(year) {
   if (!year) {
     return '';
@@ -73,10 +65,8 @@ function getClassByYear(year) {
     return 'red';
   }
 }
-
 function showSeries(data, type) {
   try {
-    const seriesEl = document.querySelector('.movies');
     document.querySelector('.movies').innerHTML = '';
     data[type].forEach((series) => {
       const seriesElement = document.createElement('div');
@@ -116,17 +106,30 @@ function showSeries(data, type) {
     showError(`Упс.. Возникла ошибка: ${error.message}`);
   }
 }
-
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const apiSearchUrl = `${API_URL_SEARCH}${search.value}`;
-  if (search.value) {
-    getSeries(apiSearchUrl, 'films');
-    search.value = '';
+initSearchFeature(searchSeries);
+async function getSeriesByKeyword(url, func, key) {
+  const resp = await fetch(url, {
+    headers: {
+      'Content-Type': 'application/json',
+      'X-API-KEY': key,
+    },
+  });
+  const respData = await resp.json();
+  if (!respData || !respData.films || respData.films.length === 0) {
+    showError('Фильмы по Вашему запросу не найдены');
+    return;
   }
-});
-
-//Modal
+  func(respData, 'films');
+}
+function searchSeries() {
+  searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter' && searchInput.value.trim() !== '') {
+      const apiSearchUrl = `${API_URL_SEARCH}${searchInput.value}`;
+      getSeriesByKeyword(apiSearchUrl, showSeries, API_KEY);
+      searchInput.value = '';
+    }
+  });
+}
 async function openModal(id) {
   modalEl.innerHTML = '';
   const resp = await fetch(API_URL_DETAILS + id, {
