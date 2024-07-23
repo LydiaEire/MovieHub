@@ -110,10 +110,9 @@ function showVideoByKeyword(data) {
 initModalFeature();
 
 
-
 //модальное окно
 
-const modalEl = document.querySelector('.modal');
+const modalEl = document.querySelector('#modal-info');
 
 async function openModal(id) {
   const resp = await fetch(apiUrlDetails + id, {
@@ -132,8 +131,7 @@ modalEl.innerHTML = `
         <div class="modal__cartoon-title"> ${respData.nameRu}</div>
       </h2>
       <ul class="modal__cartoon-info">
-        <div class="loader"></div>
-        <li class=""modal__cartoon-release-year">Год - ${respData.year}</li>
+                <li class=""modal__cartoon-release-year">Год - ${respData.year}</li>
         <li class="modal__cartoon-genre">Жанр - ${respData.genres.map((genre) => ` ${genre.genre}`)}</li>
         <li class="modal__cartoon-country">Страна - ${respData.countries.map((el)=>`<span> ${el.country} </span>`)}</li>
         <li class="modal__cartoon-overview">Описание - ${respData.description}</li>

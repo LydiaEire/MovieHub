@@ -1,3 +1,4 @@
+@import 'vars';
 * {
     box-sizing: border-box;
   }
@@ -64,15 +65,14 @@
   .movie__info {
     padding: 10px 0px;
   }
-  //.movie__title {
-   // font-size: 16px;
-    /* color: white; */
-   // color: bisque;
- // }
+  .movie__title {
+    font-size: 16px;
+    font-weight: $title-weight;
+    color: $main-color;
+ }
   .movie__category {
     font-size: 14px;
-    /* color: #ffd80e; */
-    color: #97aabd;
+    color: $genre-color;
   }
   .movie__year {
     position: absolute;
@@ -115,15 +115,22 @@
     background-color: rgba(0, 0, 0, 0.5);
     transition: width 2s;
   }
+
+  .modal__show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .modal__card {
     background-color: #ffffff;
-    max-width: 600px;
-    padding: 16px;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
-    /* background-color: #1a191f; 
-    color: #ffffff; */
-    display: flex;
-    flex-direction: column;
+  max-width: 600px;
+  padding: 16px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
+  background-color: #1a191f;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
   }
   .modal__movie-backdrop {
     width: 200px;
@@ -133,13 +140,14 @@
     margin-left: 20px;
   }
   .modal__movie-title {
-    color: #2e1114;
+    color: $main-color;
+  text-align: center;
   }
   .modal__button-close {
     padding: 5px;
-    margin: 10px;
-    align-self: center;
-    background-color: #f3e0dc;
+  margin: 10px;
+  align-self: center;
+  @include button-style;
   }
   
   .modal__movie-site {
@@ -154,9 +162,5 @@
     height: 100%;
     overflow: hidden;
   }
-  .modal__show {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  
   

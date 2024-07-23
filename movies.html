@@ -6,33 +6,68 @@
     <link rel="stylesheet" href="assets/main.css" />
     <link rel="stylesheet" href="./assets/movies.scss" />
 
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet"/>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
     <title>Фильмы</title>
   </head>
   <body>
+    <div id="modal-info" class="modal"></div>
     <div class="container">
       <div id="header" class="header"></div>
       <div class="header_container">
         <div class="header__content">
-          <a href="movies.html" class="header__logo" style="color: bisque;">Фильмы</a>
+          <a href="movies.html" class="header__logo" style="color: bisque"
+            >Фильмы</a
+          >
         </div>
       </div>
-      <div>
-        <div class="movies"></div>
-        <div class="modal"></div>
-      </div>
+      <div class="movies"></div>
+
       <div id="footer" class="footer"></div>
+      <div id="registerModal" class="modal">
+        <div class="modal-content">
+          <div class="form-structor">
+            <div class="signup">
+              <h2 class="form-title" id="signup">Sign up</h2>
+              <div class="form-holder">
+                <input type="text" class="input" placeholder="Name" />
+                <input type="email" class="input" placeholder="Email" />
+                <input type="password" class="input" placeholder="Password" />
+              </div>
+              <button class="submit-btn">Sign up</button>
+            </div>
+            <div class="login slide-up">
+              <div class="center">
+                <h2 class="form-title" id="login">Log in</h2>
+                <div class="form-holder">
+                  <input type="email" class="input" placeholder="Email" />
+                  <input
+                    type="password"
+                    class="input"
+                    id="password"
+                    placeholder="Password"
+                  />
+                </div>
+                <button class="submit-btn">Log in</button>
+              </div>
+            </div>
+          </div>
+          <button id="closeModal" class="close-modal-btn">&times;</button>
+        </div>
+      </div>
     </div>
     <script>
       // Загрузка хедера
-      fetch('header.html')
+      fetch("header.html")
         .then((response) => response.text())
-        .then((data) => (document.getElementById('header').innerHTML = data));
+        .then((data) => (document.getElementById("header").innerHTML = data));
 
       // Загрузка футера
-      fetch('footer.html')
+      fetch("footer.html")
         .then((response) => response.text())
-        .then((data) => (document.getElementById('footer').innerHTML = data));
+        .then((data) => (document.getElementById("footer").innerHTML = data));
     </script>
     <script type="module" src="./js/movies.js"></script>
   </body>
