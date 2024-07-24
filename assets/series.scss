@@ -1,6 +1,7 @@
 @import 'vars';
 * {
   box-sizing: border-box;
+  font-family: $main-font;
 }
 .container {
   max-width: 1200px;

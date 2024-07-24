@@ -1,11 +1,9 @@
 @import 'vars';
 * {
     box-sizing: border-box;
+    font-family: $main-font;
   }
-  body {
-    /* background-color: #1a191f; */
-    font-family: 'Open Sans', sans-serif;
-  }
+ 
   .container {
     max-width: 1200px;
     margin: 0 auto;
