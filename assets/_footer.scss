@@ -1,4 +1,4 @@
-/* Footer style */
+
 .footer {
     color: white;
     padding: 20px;
@@ -70,7 +70,6 @@
     margin-left: 20px;
 }
 
-/* Медиазапросы */
 
 @media (max-width: 600px) {
     .footer-container {
@@ -142,7 +141,7 @@
     }
 }
 
-/* Chat styles */
+
 .chat-container {
     position: fixed;
     bottom: 0;
@@ -217,7 +216,6 @@
     box-sizing: border-box;
 }
 
-/* Modal styles */
 .modal {
     display: none;
     position: fixed;
@@ -256,7 +254,6 @@
     cursor: pointer;
 }
 
-/* Form styles within modal */
 .contact-form, 
 .footer-column form, 
 .modal-content form {
@@ -281,11 +278,10 @@
     flex-wrap: wrap;
 }
 
-/* Updated Styles for Flexibility */
 .form-group {
     flex: 1;
     margin-bottom: 15px;
-    min-width: calc(33.33% - 10px); /* Adjust this value to manage spacing between input fields */
+    min-width: calc(33.33% - 10px); 
 }
 
 .form-group input, 

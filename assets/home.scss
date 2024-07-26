@@ -95,7 +95,6 @@ body {
     border-radius: 10px;
 }
 
-/* Popular Movies and Trending Shows styles */
 .popular-movies, .trending-shows, .popular-cartoons {
     padding: 20px;
 }
@@ -104,7 +103,7 @@ body {
     color: #FFC107;
 }
 
-/* Общие стили для галерей */
+
 .gallery-container {
     display: flex;
     overflow-x: hidden;
@@ -117,12 +116,11 @@ body {
 .gallery-content {
     display: flex;
     overflow-x: auto;
-   // scroll-behavior: smooth;//
     padding-bottom: 10px;
 }
 
 .gallery-content::-webkit-scrollbar {
-    display: none; /* Скрыть полосу прокрутки */
+    display: none;
 }
 
 .media-item {
@@ -202,7 +200,6 @@ body {
     border-radius: 5px;
 }
 
-/* Стили навигационных стрелок */
 .navigation-button {
     display: flex;
     align-items: center;
@@ -232,7 +229,6 @@ body {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-/* Popular Categories style */
 .popular-categories {
     display: flex;
     flex-wrap: wrap;
@@ -242,7 +238,6 @@ body {
     gap: 20px;
 }
 
-/* Мобильные устройства (до 400px) */
 @media (max-width: 400px) {
     .popular-categories {
         flex-direction: column;
@@ -252,8 +247,26 @@ body {
         gap: 10px;
     }
 }
+@media (max-width: 500px) {
+    .image-section {
+        display: none;
+    }
 
-/* Мобильные устройства (до 600px) */
+    .text-section {
+        width: 100%;
+    }
+    .text-section .metadata,
+    .text-section h1,
+    .text-section p,
+    .text-section a.watch-btn {
+        text-align: left;
+    }
+
+    .text-section a.watch-btn {
+        margin-top: 10px;
+    }
+}
+
 @media (max-width: 600px) {
     .popular-categories {
         flex-direction: column;
@@ -264,7 +277,7 @@ body {
     }
 }
 
-/* Планшеты (до 768px) */
+
 @media (max-width: 768px) {
     .popular-categories {
         flex-direction: column;
@@ -275,7 +288,6 @@ body {
     }
 }
 
-/* Малые десктопы (до 992px) */
 @media (max-width: 992px) {
     .popular-categories {
         flex-direction: row;
@@ -336,7 +348,6 @@ body {
     text-align: center;
 }
 
-/* Медиазапросы для заголовка и кнопки */
 @media (max-width: 768px) {
     .info-section {
         order: 1;

@@ -1,13 +1,12 @@
 import { initModalFeature } from './main.js';
 import { getVideoByKeyword } from './services.js';
 import { initSearchFeature } from './main.js';
+import  './api.js';
 
 const apiKey = "b126b7fb-040f-494b-81eb-face8df8dd40";
 const apiUrlTopCartoons = "https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=KIDS_ANIMATION_THEME&page=1";
 const apiUrlDetails = "https://kinopoiskapiunofficial.tech/api/v2.2/films/";
 const apiSearch = "https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword=";
-
-
 
 getCartoons(apiUrlTopCartoons);
 
@@ -62,9 +61,6 @@ function showCartoons(data) {
 
 }
 
-//Поиск по ключевому слову
-
-
 initSearchFeature(searchCartoon);
 
 function searchCartoon () {
@@ -105,12 +101,7 @@ function showVideoByKeyword(data) {
   })
 }
 
-// форма регистрации
-
 initModalFeature();
-
-
-//модальное окно
 
 const modalEl = document.querySelector('#modal-info');
 

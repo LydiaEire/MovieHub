@@ -76,22 +76,6 @@ function showFilms(data) {
   });
 }
 
-// const form = document.querySelector('form');
-// const search = document.querySelector('.header__search');
-
-// form.addEventListener('submit', (e) => {
-//   e.preventDefault();
-
-//   const apiSearchUrl = `${API_URL_SEARCH}${search.value}`;
-//   if (search.value) {
-//     getSeries(apiSearchUrl, 'films');
-//     search.value = '';
-//   }
-// });
-
-//Поиск по ключевому слову
-
-
 initSearchFeature(searchMovie);
 
 function searchMovie () {
@@ -144,15 +128,12 @@ function showVideoByKeyword(data) {
   })
 }
 
-// форма регистрации
 
 initModalFeature();
 
-//Окно
 const modalEl = document.querySelector('#modal-info');
 
 async function openModal(id) {
-  // modalEl.innerHTML = '';
   const resp = await fetch(API_URL_DETAILS + id, {
     headers: {
       'Content-Type': 'application/json',
@@ -171,7 +152,7 @@ async function openModal(id) {
       <ul class="modal__movie-info">
         <li class=""modal__movie-release-year">Год - ${respData.year}</li>
         <li class="modal__movie-genre">Жанр - ${respData.genres.map((genre) => ` ${genre.genre}`)}</li>
-       <li class="modal__movie-country">Страна - ${respData.countries.map((el)=>`<span> ${el.country} </span>`)}</li>
+        <li class="modal__movie-country">Страна - ${respData.countries.map((el)=>`<span> ${el.country} </span>`)}</li>
         <li class="modal__movie-overview">Описание - ${respData.description}</li>
       </ul>
       <button type="button" class="modal__button-close">Закрыть</button>

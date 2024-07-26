@@ -2,6 +2,15 @@
 
 MovieHub - это сайт для просмотра и поиска новинок фильмов, сериалов и мультфильмов. Сайт также предоставляет информацию о фильмах и телешоу, включая трейлеры, описание, рейтинг, год выпуска и многое другое.
 
+## Технологии
+
+- **HTML5**: Обеспечивает структуру веб-страниц.
+- **CSS**: Стилизация элементов и макетов сайта. Используются препроцессоры для скриптовой обработки стилей.
+- **JavaScript**: Логика и функциональность веб-приложения.
+- **Firebase**: Аутентификация и хранение данных.
+- **Vite**: Инструмент для сборки и разработки фронтенд-приложений.
+- **AJAX**: Выполнение асинхронных запросов к API.
+
 ## Установка
 
 1. **Клонирование репозитория:**
@@ -12,7 +21,7 @@ cd MovieHub
 ```
 
 2. **Установка зависимостей:**
-   
+
 Убедитесь, что у вас установлены `node` и `npm`. Если нет, установите их, используя [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm). Затем установите Vite:
 
 ```sh
@@ -21,24 +30,8 @@ nvm install 20
 npm install -D vite
 ```
 
-## Структура проекта
-
-```plaintext
-MovieHub/
-├── assets/
-│   ├── main.css              # Основной файл стилей
-├── js/
-│   ├── main.js               # Основной файл JavaScript
-├── index.html                # Главная страница
-├── _header.html               # Файл хедера
-├── _footer.html               # Файл футера
-├── media.json                # JSON файл с данными о медиа
-├── README.md                 # Документация проекта
-└── vite.config.js            # Vite конфигурационный файл
-```
-
 ## Использование
-Запуск локального сервера с Vite: Vite предоставляет быстрый и лёгкий способ для разработки приложения:
+Запуск локального сервера с Vite: 
 ```sh
 npm run dev
 ```
@@ -46,12 +39,7 @@ npm run dev
 
 
 ## API
-Для загрузки данных используется внешний API, например Kinopoisk API:
-
-```plaintext
-API Key: Используется для аутентификации запросов.
-URL API: Примеры URL API для загрузки фильмов и сериалов.
-```
+Для загрузки данных используется внешний API
 
 ## Примеры использования API
 Загрузка популярных фильмов:
@@ -63,12 +51,27 @@ GET https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_100_POPULAR_
 ```plaintext
 GET https://kinopoiskapiunofficial.tech/api/v2.2/films?yearFrom=2023&yearTo=2024&order=RATING&type=TV_SERIES&page=1
 ```
+### Пример использования API:
+
+```javascript
+async function fetchAPI(url) {
+    const response = await fetch(url, {
+        headers: {
+            'Content-Type': 'application/json',
+            'X-API-KEY': 'ваш_api_ключ',
+        },
+    });
+    const data = await response.json();
+    return data;
+}
+```
+
 ## Авторы
 Проект создан командой IT Girls:
-
-https://github.com/YuliaKov
-https://github.com/ozimko93
-https://github.com/LenaLesik
+- https://github.com/LydiaEire
+- https://github.com/YuliaKov
+- https://github.com/ozimko93
+- https://github.com/LenaLesik
 
 ## Лицензия
 Этот проект лицензирован под лицензией MIT. 

@@ -1,8 +1,8 @@
-// Home Page Section //
 import { auth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from './firebase.js';
+import { fetchAPI, filterMovies, filterShows, renderTemplate, API_URL_NEW_MOVIES, API_URL_NEW_SERIES, API_URL_NEW_CARTOONS } from './api.js';
+
 
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log('DOM fully loaded and parsed');
     try {
         await initPageContent();
         initModalFeature();
@@ -13,13 +13,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         initCurrentYear();
         initChatSupport();
     } catch (error) {
-        console.error('Error during DOMContentLoaded:', error);
+        alert('Произошла ошибка при инициализации страницы. Пожалуйста, попробуйте позже.');
     }
 });
 
 async function initPageContent() {
     try {
-        console.log('Initializing page content...');
         await loadHTML('#header', 'header.html');
         await loadHTML('#footer', 'footer.html');
         await loadPopularMovies();
@@ -27,13 +26,12 @@ async function initPageContent() {
         await loadPopularCartoons();
         loadPopularCategories();
     } catch (error) {
-        console.error('Failed to initialize page content:', error);
+        alert('Не удалось загрузить содержимое страницы.');
     }
 }
 
 function initSearchFeature(funcTest = undefined) {
     setTimeout(() => {
-        console.log('Initializing search feature...');
         const searchButton = document.getElementById('searchButton');
         const closeButton = document.getElementById('closeButton');
         const searchContainer = document.querySelector('.search-container');
@@ -50,14 +48,11 @@ function initSearchFeature(funcTest = undefined) {
                 searchContainer.classList.remove('active');
                 searchInput.value = '';
             });
-        } else {
-            console.error('Search feature elements not found.');
         }
     }, 500);
 }
 
 function initAutoScroll() {
-    console.log('Initializing auto scroll...');
     const galleries = document.querySelectorAll('.gallery-container');
     galleries.forEach(gallery => {
         const leftButton = gallery.querySelector('.navigation-button.left');
@@ -89,7 +84,6 @@ function initAutoScroll() {
 }
 
 function initModalFeature() {
-    console.log('Initializing modal feature...');
     const registerButton = document.getElementById('registerButton');
     const registerModal = document.getElementById('registerModal');
     const closeModal = document.getElementById('closeModal');
@@ -105,86 +99,64 @@ function initModalFeature() {
 
     if (registerButton && registerModal && closeModal) {
         registerButton.addEventListener('click', () => {
-            console.log('Register button clicked');
             registerModal.style.display = 'block';
         });
 
         closeModal.addEventListener('click', () => {
-            console.log('Close modal button clicked');
             registerModal.style.display = 'none';
         });
 
         window.addEventListener('click', (event) => {
             if (event.target === registerModal) {
-                console.log('Clicked outside the modal, closing modal');
                 registerModal.style.display = 'none';
             }
         });
 
-        // Регистрация нового пользователя
         signupButton.addEventListener('click', async (e) => {
             e.preventDefault();
-            console.log('Signup button clicked');
 
             const name = signupNameInput.value;
             const email = signupEmailInput.value;
             const password = signupPasswordInput.value;
 
-            console.log(`Signup form values: Name - ${name}, Email - ${email}, Password - [HIDDEN]`);
-
             if (!name || !email || !password) {
-                console.warn('Please fill out all fields.');
-                alert('Please fill out all fields.');
+                alert('Пожалуйста, заполните все поля.');
                 return;
             }
 
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                console.log('User registered:', userCredential.user);
                 await updateProfile(userCredential.user, { displayName: name, photoURL: 'https://img.icons8.com/?size=100&id=cVvlNnxJxomp&format=png&color=000000' });
-                console.log('User profile updated with display name and photo URL');
                 registerModal.style.display = 'none';
                 showUserProfile(userCredential.user);
             } catch (error) {
-                console.error('Error during registration:', error);
-                alert(`Error during registration: ${error.message}`);
+                alert(`Ошибка при регистрации: ${error.message}`);
             }
         });
 
-        // Вход существующего пользователя
         loginButton.addEventListener('click', async (e) => {
             e.preventDefault();
-            console.log('Login button clicked');
 
             const email = loginEmailInput.value;
             const password = loginPasswordInput.value;
 
-            console.log(`Login form values: Email - ${email}, Password - [HIDDEN]`);
-
             if (!email || !password) {
-                console.warn('Please fill out all fields.');
-                alert('Please fill out all fields.');
+                alert('Пожалуйста, заполните все поля.');
                 return;
             }
 
             try {
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                console.log('User logged in:', userCredential.user);
                 registerModal.style.display = 'none';
                 showUserProfile(userCredential.user);
             } catch (error) {
-                console.error('Error during login:', error);
-                alert(`Error during login: ${error.message}`);
+                alert(`Ошибка при входе: ${error.message}`);
             }
         });
-    } else {
-        console.error('Modal feature elements not found.');
     }
 }
 
-// Форма обратной связи
 function initContactModalFeature() {
-    console.log('Initializing contact modal feature...');
     const contactLink = document.getElementById('contactLink');
     const contactModal = document.getElementById('contactModal');
     const closeModal = document.querySelector('.close');
@@ -204,32 +176,23 @@ function initContactModalFeature() {
                 contactModal.style.display = 'none';
             }
         });
-    } else {
-        console.error('Contact modal feature elements not found.');
     }
 }
 
-// Функция для отображения профиля пользователя
 function showUserProfile(user) {
-    console.log('Showing user profile...');
     const userProfile = document.getElementById('userProfile');
     const registerButton = document.getElementById('registerButton');
     const userNameElement = document.getElementById('userName');
     const userAvatarElement = document.getElementById('userAvatar');
 
-    console.log(`User info: DisplayName - ${user.displayName}, PhotoURL - ${user.photoURL}`);
-
     userNameElement.textContent = user.displayName;
     userAvatarElement.src = user.photoURL || 'https://img.icons8.com/?size=100&id=cVvlNnxJxomp&format=png&color=000000';
-    
     registerButton.style.display = 'none';
     userProfile.style.display = 'flex';
-    console.log('User profile displayed');
 }
 
 async function loadHTML(selector, url) {
     try {
-        console.log(`Loading HTML for ${selector} from ${url}`);
         const response = await fetch(url);
         const html = await response.text();
         document.querySelector(selector).innerHTML = html;
@@ -240,12 +203,11 @@ async function loadHTML(selector, url) {
             initBurgerMenu();
         }
     } catch (error) {
-        console.error(`Error loading HTML into ${selector}:`, error);
+        alert(`Не удалось загрузить содержимое для ${selector}.`);
     }
 }
 
 function initBurgerMenu() {
-    console.log('Initializing burger menu...');
     const burgerMenuButton = document.querySelector('.burger-menu');
     const menu = document.querySelector('.navbar-menu');
 
@@ -253,8 +215,6 @@ function initBurgerMenu() {
         burgerMenuButton.addEventListener('click', () => {
             menu.classList.toggle('show');
         });
-    } else {
-        console.error('Burger menu elements not found.');
     }
 }
 
@@ -278,74 +238,41 @@ function initChatSupport() {
                 chatContainer.style.display = 'none';
             }
         });
-    } else {
-        console.error('Chat support elements not found.');
     }
-}
-
-async function fetchAPI(url) {
-    console.log(`Fetching data from ${url}`);
-    const response = await fetch(url, {
-        headers: {
-            'Content-Type': 'application/json',
-            'X-API-KEY': API_KEY,
-        },
-    });
-
-    if (!response.ok) {
-        throw new Error(`Failed to fetch data: ${response.statusText}`);
-    }
-
-    return response.json();
 }
 
 async function loadPopularMovies() {
     try {
-        console.log('Loading popular movies...');
         const data = await fetchAPI(API_URL_NEW_MOVIES);
         const filteredMovies = filterMovies(data.films);
         const movieGallery = document.getElementById('movieGallery');
         movieGallery.innerHTML = filteredMovies.map((movie) => renderTemplate(movie)).join('');
         movieGallery.classList.add('gallery-content');
     } catch (error) {
-        console.error('Error loading popular movies:', error);
+        alert('Не удалось загрузить популярные фильмы.');
     }
-}
-
-function filterMovies(movies) {
-    return movies.filter(movie => {
-        return !movie.genres.some(genre => genre.genre.toLowerCase().includes('мультфильм') || genre.genre.toLowerCase().includes('мультфильмы'));
-    });
 }
 
 async function loadTrendingShows() {
     try {
-        console.log('Loading trending shows...');
         const data = await fetchAPI(API_URL_NEW_SERIES);
         const filteredShows = filterShows(data.items);
         const tvShowGallery = document.getElementById('tvShowGallery');
         tvShowGallery.innerHTML = filteredShows.map((show) => renderTemplate(show)).join('');
         tvShowGallery.classList.add('gallery-content');
     } catch (error) {
-        console.error('Error loading trending shows:', error);
+        alert('Не удалось загрузить популярные сериалы.');
     }
-}
-
-function filterShows(shows) {
-    return shows.filter(show => {
-        return !show.genres.some(genre => genre.genre.toLowerCase().includes('документальный') || genre.genre.toLowerCase().includes('мультфильм'));
-    });
 }
 
 async function loadPopularCartoons() {
     try {
-        console.log('Loading popular cartoons...');
         const data = await fetchAPI(API_URL_NEW_CARTOONS);
         const cartoonGallery = document.getElementById('cartoonGallery');
         cartoonGallery.innerHTML = data.items.map((cartoon) => renderTemplate(cartoon)).join('');
         cartoonGallery.classList.add('gallery-content');
     } catch (error) {
-        console.error('Error loading popular cartoons:', error);
+        alert('Не удалось загрузить популярные мультфильмы.');
     }
 }
 
@@ -369,28 +296,6 @@ function loadPopularCategories() {
         },
     ];
     renderGallery('categories', 'category-card', categories, true);
-}
-
-const API_KEY = '827c7dbe-9cd5-489c-9eb6-31db220697f9';
-const API_URL_NEW_MOVIES = 'https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_100_POPULAR_FILMS&page=1';
-const API_URL_NEW_SERIES = 'https://kinopoiskapiunofficial.tech/api/v2.2/films?yearFrom=2023&yearTo=2024&order=RATING&type=TV_SERIES&page=1';
-const API_URL_NEW_CARTOONS = 'https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=KIDS_ANIMATION_THEME&page=1';
-
-function renderTemplate(data) {
-    return `
-        <div class="media-item">
-            <div class="media-item__cover_inner">
-                <img src="${data.posterUrlPreview}" class="media-item__cover" alt="${data.nameRu}">
-                <div class="media-item__cover_darkened"></div>
-            </div>
-            <div class="media-item__info">
-                <div class="media-item__title">${data.nameRu}</div>
-                <div class="media-item__category">${data.genres.map(genre => genre.genre).join(', ')}</div>
-                <div class="media-item__year">${data.year}</div>
-                ${data.trailer_link ? `<a href="${data.trailer_link}" target="_blank" class="media-item__trailer-link">Смотреть трейлер</a>` : ''}
-            </div>
-        </div>
-    `;
 }
 
 function renderGallery(containerId, cardClass, items, isCategory = false) {
@@ -417,13 +322,9 @@ function initCurrentYear() {
     const yearElement = document.getElementById('currentYear');
     if (yearElement) {
         yearElement.textContent = currentYear;
-    } else {
-        console.error('Year element not found.');
     }
 }
 
 export { initSearchFeature, initModalFeature };
 
-
-// The end of Home Page Section //
 
